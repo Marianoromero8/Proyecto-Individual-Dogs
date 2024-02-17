@@ -1,6 +1,11 @@
 const router = require("express").Router();
+const getDogs = require("../controllers/getDogs");
+const getDetailByRaza = require("../controllers/getDetailByRaza");
+const getDogByName = require("../controllers/getDogByName");
+const postDog = require("../controllers/postDogs");
 
-router.get("/", )
-router.get("/:idRaza", )
-router.get("/name?=''", )
-router.post("/register", )
+
+router.get("/", getDogs)
+router.get("/:idRaza", getDetailByRaza)
+router.get("/name?=", getDogByName)
+router.post("/register", postDog)
