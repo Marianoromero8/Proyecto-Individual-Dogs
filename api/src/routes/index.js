@@ -2,8 +2,11 @@ const router = require('express').Router();
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
-router.use("/dogs",() => {} );
-router.use("/temperaments",() => {} )
+const routeDogs = require ("./dogs");
+const routeTemperaments = require("./temperaments")
+
+router.use("/dogs", routeDogs );
+router.use("/temperaments", routeTemperaments )
 
 
 

@@ -24,7 +24,7 @@ server.use((req, res, next) => {
 
 server.use(express.json());
 
-server.use('/dogs', routes);
+server.use('/api', routes);
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

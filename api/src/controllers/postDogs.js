@@ -4,4 +4,4 @@ const postDog = async (req, res) => {
 
 }
 
-module.exports = postDog;
+module.exports = {postDog};

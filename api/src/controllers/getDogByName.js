@@ -4,4 +4,4 @@ const getDogByName = async (req, res) => {
 
 }
 
-module.exports = getDogByName;
+module.exports = {getDogByName};
