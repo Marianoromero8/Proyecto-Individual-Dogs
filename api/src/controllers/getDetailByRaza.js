@@ -1,4 +1,5 @@
 const { Dog } = require("../db");
+const service = require("../service/getRazaById")
 
 const getDetailByRaza = async (req, res) => {
     const { id } = req.params;
@@ -9,17 +10,16 @@ const getDetailByRaza = async (req, res) => {
 
     try{
         
-        const idRaza = await Dog.findByPk(id)
-        
-        if(!idRaza){
-            return res.status(400).json({message: "No se encuentra la raza"})
-        }
+        const breed = await service.getRazaById(id)
 
-        res.status(200).json(idRaza);
+        return res.status(200).json(breed)
 
     }
     catch(error){
-        res.status(400).json({error: error.message})
+        if(error.message == "Character Not Found") {
+            return res.status(404).send("Character Not Found")
+        }
+        res.status(error.statusCode || 500).json(`error interno - ${error.message}`)
     }
 }
 

@@ -9,7 +9,7 @@ module.exports = (conn) => {
                 },
                 imagen:{
                     type: DataTypes.STRING,
-                    allowNull: false,
+                    allowNull: true,
                 },
                 nombre: {
                     type: DataTypes.STRING,
