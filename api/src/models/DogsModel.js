@@ -20,21 +20,24 @@ module.exports = (conn) => {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate: {
-                        len:[4]
+                        min:10,
+                        max: 200
                     }
                 },
                 peso: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate: {
-                        len:[4]
+                        min: 1,
+                        max: 200
                     }
                 },
                 años: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate:{
-                        len:[2]
+                        min: 1,
+                        max: 25
                     }
                 }
             },

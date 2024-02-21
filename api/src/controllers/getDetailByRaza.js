@@ -10,9 +10,9 @@ const getDetailByRaza = async (req, res) => {
 
     try{
         
-        const breed = await service.getRazaById(id)
+    const breed = await service.getRazaById(id)
 
-        return res.status(200).json(breed)
+    return res.status(200).json(breed)
 
     }
     catch(error){

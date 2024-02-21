@@ -3,15 +3,19 @@ const service = require("../service/getByName")
 
 
 const getDogByName = async (req, res) => {
-    
-    const {name} = req.query;
-    
+    const { name } = req.params;
+
     try{
-    const dogName = name.toLowerCase()
+    // const breedName = name.chartAt(0).toUpperCase();
 
-    const dogByName = await service.getByName(dogName)
-
-    return res.status(200).json(dogByName)
+    if(!name){
+        return new Error("Falta un nombre para buscar")
+    }
+    
+    const dogByName = await service.getByName(name)
+    
+    res.status(200).json(dogByName)
+    
     }
     catch(error){
         res.status(400).json({error: error.message})
