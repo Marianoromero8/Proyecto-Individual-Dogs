@@ -14,7 +14,7 @@ const getByName = async (name) => {
     //Con el response.data[0] esta extrayendo el primer array, osea primera raza, de los que coinciden con el nombre que paso
     const dog = response.data[0];
 
-    const { temperament, weight, height, life_span, reference_image_id } = dog;
+    const {id, temperament, weight, height, life_span, reference_image_id } = dog;
 
     
     // if(!data.name){
@@ -23,6 +23,7 @@ const getByName = async (name) => {
 
 
     const byName = { 
+        id: id,
         image: reference_image_id,
         nombre: name,
         altura: height.metric,
