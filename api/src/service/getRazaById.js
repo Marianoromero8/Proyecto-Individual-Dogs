@@ -13,13 +13,13 @@ const getRazaById = async (id) => {
     }
 
     const byId = {
-        id,
-        reference_image_id,
-        name,
-        height,
-        weight,
-        temperament,
-        life_span,
+        id: id,
+        image: reference_image_id,
+        name: name,
+        height: height.metric,
+        weight: weight.metric,
+        temperament: temperament,
+        life_span: life_span,
     }
 
     return byId;

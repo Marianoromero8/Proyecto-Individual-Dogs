@@ -11,10 +11,10 @@ const getDogs = async (req, res) => {
         const { data } = response;
         //mapeo para que solo aparezca el nombre, imagen y origin. Luego en el front voy a poner un icono de ¡ para los detalles donde aparecera el resto
         const dogs = data.map(dog => ({
-            image: dog.image,
+            image: dog.image.url,
             name: dog.name,
             temperament: dog.temperament,
-            weight: dog.weight
+            weight: dog.weight.metric
         }))
 
         res.status(200).json(dogs)
