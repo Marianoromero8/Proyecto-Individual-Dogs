@@ -10,6 +10,7 @@ const Cards = () => {
     try{
     axios('http://localhost:3001/api/dogs')
     .then(response => {
+      console.log(response.data.slice(0,8))
       setDgs(response.data.slice(0, 8));
     })
     .catch(error => {

@@ -62,7 +62,7 @@ function App() {
 
         <Route path='/home' element={<Home dog={dogs} onClose={onClose}/>}/>
 
-        <Route path='/detail/:id' element={<Detail/>}/>
+        <Route path='/detail/:imageId' element={<Detail/>}/>
 
         <Route path='/form' element={<Form onLogin={onLogin}/>}/>
 
