@@ -4,10 +4,6 @@ const service = require("../service/getRazaById")
 const getDetailByRaza = async (req, res) => {
     const { id } = req.params;
 
-    if(isNaN(Number(id))){
-        return res.status(400).json({message: "Id no es un numero"})
-    }
-
     try{
         
     const breed = await service.getRazaById(id)
