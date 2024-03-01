@@ -32,8 +32,8 @@ const Detail = () => {
    <div>
    <h1 className={style.name}>{breed.name}</h1>
    <h2 className={style.h2}>#{breed.id}</h2>
-   <h2 className={style.h2}>Height: {breed.height}</h2>
-   <h2 className={style.h2}>Weight: {breed.weight}</h2>
+   <h2 className={style.h2}>Height: {breed.height}cm</h2>
+   <h2 className={style.h2}>Weight: {breed.weight}kg</h2>
    <h2 className={style.h2}>Temperament: {breed.temperament}</h2>
    <h2 className={style.h2}>Ages: {breed.life_span}</h2>
    </div>

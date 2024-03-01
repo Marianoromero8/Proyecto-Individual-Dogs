@@ -13,10 +13,9 @@ function App() {
   const [dogs, setDogs] = useState([]);
 
   const onSearch = async (name) => {
-  if(dogs.some(d => d.name === name)) window.alert ("Breed exist")
-
+  if(dogs.some(d => d.name === name)) {
   try{
-    const {data} = await axios(`http://localhost:3001/api/dogs/name/name?name=${name}`)
+    const {data} = await axios(`http://localhost:3001/api/dogs/name/${name}`)
     if(data.name){
       setDogs((oldDogs) => [...oldDogs, data])
     } else {
@@ -24,9 +23,10 @@ function App() {
     }
   }
   catch(error){
-    alert('No function')
+    alert('No found')
   }
   }
+}
 
   const onClose = (id) => {
     setDogs((prevState) => prevState.filter((dog) => {

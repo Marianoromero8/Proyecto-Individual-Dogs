@@ -84,6 +84,7 @@ const Form = ({onLogin}) => {
     <div>
       <label htmlFor="temperament">Temperamentos:</label>
       <ReactTags tags={tags} handleAdd={handleAdd} handleDelete={handleDelete} placeholder='Add temperaments' value={form.temperamento} onChange={handleChange} />
+      <small>Add 5 temperaments</small>
     </div>
 
     <button type='submit' onClick={handleSubmit}>Create</button>
