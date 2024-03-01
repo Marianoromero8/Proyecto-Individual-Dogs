@@ -16,12 +16,6 @@ const getByName = async (name) => {
 
     const {id, temperament, weight, height, life_span, reference_image_id } = dog;
 
-    
-    // if(!data.name){
-    //     throw new Error("Escribir un nombre")
-    // }
-
-
     const byName = { 
         id: id,
         image: reference_image_id,
