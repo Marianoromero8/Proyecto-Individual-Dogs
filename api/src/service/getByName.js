@@ -4,29 +4,29 @@ const {API_KEY} = process.env;
 
 const getByName = async (name) => {
     try{
-
+       
     if(!name){
         throw new Error("Escribir un nombre")
     }
 
-    const response = await axios(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`);
+    const promise = await axios(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`);
 
-    //Con el response.data[0] esta extrayendo el primer array, osea primera raza, de los que coinciden con el nombre que paso
-    const dog = response.data[0];
+    const dogsArray = promise.data;
 
-    const {id, temperament, weight, height, life_span, reference_image_id } = dog;
+    if(dogsArray.length > 0){    
+    const {name, temperament, weight, height, life_span, image, id} = dogsArray[0]
+    
 
-    const byName = { 
+    return [{
         id: id,
-        image: reference_image_id,
-        nombre: name,
-        altura: height.metric,
-        peso: weight.metric,
-        temperamento: temperament,
-        años: life_span
+        name: name, 
+        temperament: temperament, 
+        weight: weight.metric, 
+        height: height.metric, 
+        ages: life_span, 
+        image: image.url 
+    }]
     }
-
-    return byName;
     }
     catch(error){
         throw error;
