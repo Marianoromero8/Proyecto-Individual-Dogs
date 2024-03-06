@@ -1,0 +1,14 @@
+.form{
+    color: #293f14;
+}
+
+.tag{
+    background-color: green;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.buttonTag{
+    backdrop-filter: blur(10px);
+    border: solid black;
+}

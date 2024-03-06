@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import style from './Form.module.css'
 
 const Form = ({onLogin}) => {
 
@@ -12,6 +13,23 @@ const Form = ({onLogin}) => {
     años:"",
     temperamento: []
   })
+  
+  const[temp, setTemp] = useState([])
+  
+  useEffect(() => {
+    try{
+      axios('http://localhost:3001/api/temperaments')
+      .then(response => {
+          setTemp(response.data);
+       })
+      .catch(error => {
+          return ({error})
+       })
+      }
+    catch(error){
+      return ({error})
+    }
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,36 +40,33 @@ const Form = ({onLogin}) => {
   const handleChange = (event) => {
     const {name, value} = event.target;
 
-    const newState = {
-      ...form,
-      [name]: value
-    };
-
-    setForm(newState);
-
-    
+    if(!form.temperamento.includes(value) && form.temperamento.length < 5) {
+      setForm({
+        ...form,
+        temperamento: [...form.temperamento, value]
+      })
+    } else {
+      setForm({
+        ...form,
+        [name]: value
+      });
+    }    
   }
 
-  const[temp, setTemp] = useState([])
+  const handleRemove = (i) => {
+    const freshTemp = [...form.temperamento];
 
-    useEffect(() => {
-        try{
-            axios('http://localhost:3001/api/temperaments')
-            .then(response => {
-                setTemp(response.data);
-                console.log(setTemp)
-            })
-            .catch(error => {
-                return ({error})
-            })
-        }
-        catch(error){
-            return ({error})
-        }
-    }, [])
+    freshTemp.splice(i, 1);
+
+    setForm({
+      ...form,
+      temperamento: [...freshTemp]
+    })
+  }
+
 
   return (
-    <div>
+    <div className={style.form}>
     
     <form>
     <h1>Create a new card</h1>
@@ -80,13 +95,19 @@ const Form = ({onLogin}) => {
 
     <div>
       <label htmlFor="temperament">Temperamentos:</label>
-      <select name="temperament">
+      <select onChange={handleChange} name="temperament">
         {
-          temp.map( tp =>
-            <option>{tp}</option> )
+          temp.map( (tp , i) =>
+            <option key={i} value={tp}>{tp}</option> )
         }
       </select>
       <small>Max 5 temperaments</small>
+      {form.temperamento.map((tempe, i) => (
+        <div key={i} className={style.tag}>
+          <span>{tempe}</span>
+          <button className={style.buttonTag} type='button' onClick={() => handleRemove(i)}>X</button>
+        </div>
+      ))}
     </div>
 
     <button type='submit' onClick={handleSubmit}>Create</button>

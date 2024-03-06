@@ -15,13 +15,12 @@ function App() {
   const [dogs, setDogs] = useState([]);
 
   const onSearch = async (name) => {
-  
   try{
     const {data} = await axios(`http://localhost:3001/api/dogs/name/name?name=${name}`)
     if(data.length > 0){
       setDogs(data)
     } else {
-      alert('¡No dog with that name breed!')
+      alert('¡Breed does not exist!')
     }
   }
   catch(error){
