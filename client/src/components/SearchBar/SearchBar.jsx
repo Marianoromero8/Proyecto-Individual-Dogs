@@ -10,18 +10,19 @@ const SearchBar = ({onSearch}) => {
     setState(value)
   }
 
-  const handleClick = () => {
-    onSearch(state)
+  const handleClick = (e) => {
+    e.preventDefault()
+    onSearch(state) 
 
     setState("")
   }
 
 
   return (
-    <div>
+    <form onSubmit={handleClick}>
       <input value={state}  placeholder='Breed...' onChange={handleChange}/>
-      <button onClick={handleClick}>Search</button>
-    </div>
+      <button type='submit'>Search</button>
+    </form>
   )
 }
 

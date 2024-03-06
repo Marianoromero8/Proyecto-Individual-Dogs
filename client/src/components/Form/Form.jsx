@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
-import {WithOutContext as ReactTags} from 'react-tag-input'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 const Form = ({onLogin}) => {
-
-  const [tags, setTags] = useState([]);
 
   const [form, setForm] = useState({
     name:"",
@@ -14,25 +12,6 @@ const Form = ({onLogin}) => {
     años:"",
     temperamento: []
   })
- 
-  const handleAdd = tag => {
-    const newTag = [...tags, tag]
-
-    setTags(newTag);
-    setForm({
-      ...form,
-      temperamento: newTag.map(tag => tag.text)
-    })
-  }
-
-  const handleDelete = del => {
-    const newTag = tags.filter((tag, i) => i !== del);
-    setTags(newTag);
-    setForm({
-      ...form,
-      temperamento: newTag.map(tag => tag.text)
-    })
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -52,6 +31,24 @@ const Form = ({onLogin}) => {
 
     
   }
+
+  const[temp, setTemp] = useState([])
+
+    useEffect(() => {
+        try{
+            axios('http://localhost:3001/api/temperaments')
+            .then(response => {
+                setTemp(response.data);
+                console.log(setTemp)
+            })
+            .catch(error => {
+                return ({error})
+            })
+        }
+        catch(error){
+            return ({error})
+        }
+    }, [])
 
   return (
     <div>
@@ -83,8 +80,13 @@ const Form = ({onLogin}) => {
 
     <div>
       <label htmlFor="temperament">Temperamentos:</label>
-      <ReactTags tags={tags} handleAdd={handleAdd} handleDelete={handleDelete} placeholder='Add temperaments' value={form.temperamento} onChange={handleChange} />
-      <small>Add 5 temperaments</small>
+      <select name="temperament">
+        {
+          temp.map( tp =>
+            <option>{tp}</option> )
+        }
+      </select>
+      <small>Max 5 temperaments</small>
     </div>
 
     <button type='submit' onClick={handleSubmit}>Create</button>

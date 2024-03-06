@@ -1,40 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Card from '../Card/Card'
 import Filters from '../utils/Filters';
 import Nav from '../Nav/Nav';
-import axios from 'axios';
 
-const Home = ({onSearch, onClose, dogs, pagina, porPag}) => {
-
-    const [dgs, setDgs] = useState([])
-
-  useEffect(() => {
-    try{
-    axios('http://localhost:3001/api/dogs')
-    .then(response => {
-      setDgs(response.data);
-    })
-    .catch(error => {
-      return ({error})
-    })
-    }
-    catch(error){
-      return ({error})
-    }
-  }, [])
-
+const Home = ({onSearch, dogs, onClose, pagina, porPag}) => {
 
   return (
     <div>
       <Nav onSearch={onSearch}/>
       <Filters/>
-      {dgs
+      {dogs
       .slice(
         (pagina - 1) * porPag,
         (pagina - 1) * porPag + porPag
       )
       .map((dg) => (
-        <Card dg={dg} key={dg.id} />
+      <Card dg={dg} key={dg.id} />
       ))}
     </div>
   )

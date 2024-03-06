@@ -19,8 +19,7 @@ function App() {
   try{
     const {data} = await axios(`http://localhost:3001/api/dogs/name/name?name=${name}`)
     if(data.length > 0){
-      setDogs((oldDogs) => [...oldDogs, data[0]])
-      console.log(dogs)
+      setDogs(data)
     } else {
       alert('¡No dog with that name breed!')
     }
@@ -28,11 +27,22 @@ function App() {
   catch(error){
     alert('No found')
   }
-}
+  }
 
 useEffect(() => {
- console.log(dogs)
-}, [dogs])
+  try{
+  axios('http://localhost:3001/api/dogs')
+  .then(response => {
+    setDogs(response.data);
+  })
+  .catch(error => {
+    return ({error})
+  })
+  }
+  catch(error){
+    return ({error})
+  }
+}, [])
 
   const onClose = (id) => {
     setDogs((prevState) => prevState.filter((dog) => {
@@ -54,39 +64,13 @@ useEffect(() => {
     })
   }
 
-  // const [call, setCall] = useState([])
-  
-  //   useEffect(() => {
-  //     try{
-  //     axios('http://localhost:3001/api/dogs')
-  //     .then(response => {
-  //       setCall(response.data);
-  //     })
-  //     .catch(error => {
-  //       return ({error})
-  //     })
-  //     }
-  //     catch(error){
-  //       return ({error})
-  //     }
-  //   }, [])
-  
-
-  // const[pagina, setPagina] = useState(1);
-  // const[porPag, setPorPag] = useState(8);
- 
-  // const max = Math.ceil(call.length / porPag);
 
   return (
     <div className="App">
 
-    {/* {location.pathname === '/home' && <Nav onSearch={onSearch}/>} */}
-
       <Routes>
 
         <Route path='/' element={<Landing/>}/>
-
-        {/* <Route path='/home' element={<Home dog={dogs} onSearch={onSearch} onClose={onClose}/>}/> */}
 
         <Route path='/home' element={<Pagination dogs={dogs} onSearch={onSearch} onClose={onClose}/>}/>
 

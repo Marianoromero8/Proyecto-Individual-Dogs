@@ -62,10 +62,11 @@ const Pagination = ({dogs, onSearch, onClose}) => {
     const onChange = (event) => {
         setInput(event.target.value)
     }
+
     
     return (
     <div>
-      <Home pagina={pagina} porPag={porPag} dog={showDogs} onSearch={onSearch} onClose={onClose}/>
+      <Home pagina={pagina} porPag={porPag} dogs={showDogs} onSearch={onSearch} onClose={onClose}/>
       <button disabled={pagina === 1 || pagina < 1} onClick={backPage}>Back</button>
       <input onChange={event => onChange(event)} onClick={event => onInput(event)} name='page' value={input} autoComplete='off'/>
       <p>de {max}</p>
