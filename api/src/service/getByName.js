@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { Dog, Temperament } = require("../db");
 require ('dotenv').config();
 const {API_KEY} = process.env;
 
@@ -9,9 +10,9 @@ const getByName = async (name) => {
         throw new Error("Escribir un nombre")
     }
 
-    const promise = await axios(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`);
+    const dogFromApi = await axios(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`);
 
-    const dogsArray = promise.data;
+    const dogsArray = dogFromApi.data;
 
     if(dogsArray.length > 0){    
     const {name, temperament, weight, height, life_span, image, id} = dogsArray[0]
@@ -26,7 +27,22 @@ const getByName = async (name) => {
         ages: life_span, 
         image: image.url 
     }]
+    } 
+
+    const dogFromDB = await Dog.findAll({
+        where: {name},
+        include: {
+            model: Temperament,
+            through: 'dog_temperament'
+        }
+    })
+
+    if(dogFromDB){
+        return dogFromDB
     }
+
+
+
     }
     catch(error){
         throw error;

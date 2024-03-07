@@ -1,9 +1,10 @@
 const axios = require("axios");
 require ('dotenv').config();
 const {API_KEY} = process.env;
+const {Dog, Temperament} = require ('../db')
 
 
-const getDogs = async (req, res) => {
+const getDogsFromApi = async (req, res) => {
     //Llamo a toda la api y luego en el front mapeo para que aparezcan solo unas pocas cartas.
     try{
         const response = await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
@@ -19,12 +20,44 @@ const getDogs = async (req, res) => {
             imageId: dog.reference_image_id
         }))
 
-        res.status(200).json(dogs)
+        return (dogs)
     }
     catch(error){
-        res.status(400).json({error: error.message})
+        return ({error: error.message})
     }
 }
 
-module.exports = {getDogs};
+const getDogFromDB = async (req, res) => {
+    try {
+        const dogs = await Dog.findAll({
+            include: {
+                model: Temperament,
+                attributes: ["name"],
+                through: {
+                    attributes: []
+                }
+            }
+        })
+        return (dogs)
+    } 
+    catch (error) {
+        return ({error: error.message})
+    }
+}
+
+const getAllsDogs = async (req, res) => {
+    const apiDogs = await getDogsFromApi()
+    const dbDogs = await getDogFromDB()
+    try {
+        const callAllDogs = [...apiDogs, ...dbDogs];
+
+        res.status(200).json(callAllDogs)
+    } 
+    catch (error) {
+        res.status(400).json({error: error.message})
+    }
+
+}
+
+module.exports = {getAllsDogs};
 

@@ -3,20 +3,20 @@ const { DataTypes } = require("sequelize");
 module.exports = (conn) => {
     conn.define('dog', {
                 id:{
-                    type: DataTypes.INTEGER,
-                    autoIncrement: true,
+                    type: DataTypes.UUID,
                     primaryKey: true,
+                    defaultValue: DataTypes.UUIDV4
                 },
-                imagen:{
+                image:{
                     type: DataTypes.STRING,
                     allowNull: true,
                 },
-                nombre: {
+                name: {
                     type: DataTypes.STRING,
                     unique: true,
                     allowNull: false
                 },
-                altura: {
+                height: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate: {
@@ -24,7 +24,7 @@ module.exports = (conn) => {
                         max: 200
                     }
                 },
-                peso: {
+                weight: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate: {
@@ -32,7 +32,7 @@ module.exports = (conn) => {
                         max: 200
                     }
                 },
-                años: {
+                age: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate:{

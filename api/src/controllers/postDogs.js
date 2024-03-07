@@ -10,22 +10,22 @@ const postDog = async (req, res) => {
     try{
 
         const [dog, created] = await Dog.findOrCreate({
-            where:{nombre: name},
+            where:{name: name},
             defaults: {
-                nombre: name,
-                altura: height.metric,
-                peso: weight.metric,
-                años: life_span,
+                name: name,
+                height: height.metric,
+                weight: weight.metric,
+                age: life_span,
+                temperament: temperament
             }
         })
-
-        for (const temperamentId of temperament){
-            const temp = await Temperament.findByPk(temperamentId);
+        
+        temperament.forEach(async t => {    
+            const temp = await Temperament.findOne({where: {name: t}});
             if(temp){
                 await dog.addTemperament(temp)
             }
-        }
-
+        })
         if(created){
             res.status(201).json(dog)
         } else{
