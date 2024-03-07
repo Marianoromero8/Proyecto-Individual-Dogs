@@ -97,8 +97,8 @@ const Form = ({onLogin}) => {
       <label htmlFor="temperament">Temperamentos:</label>
       <select onChange={handleChange} name="temperament">
         {
-          temp.map( (tp , i) =>
-            <option key={i} value={tp}>{tp}</option> )
+          temp.map( (tp) =>
+            <option key={tp.id} value={tp.name}>{tp.name}</option> )
         }
       </select>
       <small>Max 5 temperaments</small>
