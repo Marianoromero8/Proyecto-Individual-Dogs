@@ -1,0 +1,28 @@
+.p{
+    color: #3EFF8B;
+}
+
+.input{
+    color: #3EFF8B;
+    border: solid 1px;
+    border-radius: 5px;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+}
+
+.button{
+    color: #3EFF8B;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: solid 1px;
+    color: #3EFF8B;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover{
+    color: #293F14;
+    background-color: #3EFF8B;
+    border-color: #293F14;
+    cursor: pointer;
+}

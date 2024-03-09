@@ -6,6 +6,8 @@ import Landing from './components/Landing/Landing';
 import Form from './components/Form/Form';
 import Detail from './components/Detail/Detail'
 import Pagination from './components/Pagination/Pagination';
+import { useDispatch } from 'react-redux';
+import { getAllDogs } from './redux/actions';
 
 
 function App() {
@@ -13,6 +15,11 @@ function App() {
   const navigate = useNavigate()
 
   const [dogs, setDogs] = useState([]);
+
+  const dispatch = useDispatch()
+
+  
+
 
   const onSearch = async (name) => {
   try{
@@ -29,6 +36,7 @@ function App() {
   }
 
 useEffect(() => {
+  dispatch(getAllDogs())
   try{
   axios('http://localhost:3001/api/dogs')
   .then(response => {

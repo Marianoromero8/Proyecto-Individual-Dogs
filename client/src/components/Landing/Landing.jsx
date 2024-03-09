@@ -9,7 +9,7 @@ const Landing = () => {
   return (
     <div className={style.landing}>
       <h1>Welcome to my Dog's Project</h1>
-      <h3>You can find different breeds and see the characteristics. Also you can add a new breed that you know</h3>
+      <h3>If you want to see different breeds click on button enter. Also you can add a new breed that you know</h3>
       <button onClick={() => {navigate('/home')}} className={style.landingButton}>Enter</button>
     </div>
   )

@@ -1,14 +1,44 @@
 .form{
-    color: #293f14;
+    color: #3EFF8B;
+    border: solid 1px;
+    display: flex;
+    margin: auto;
 }
 
 .tag{
-    background-color: green;
+    font-size: x-small;
+    backdrop-filter: blur(10px);
+    border: solid 1px;
     border-radius: 12px;
+    margin: 0 auto;
     text-align: center;
+    width: 150px;
+    text-align: start;
 }
 
 .buttonTag{
+    color: #3EFF8B;
+    background-color: transparent;
     backdrop-filter: blur(10px);
-    border: solid black;
+    border: none;
+    width: 10px;
+    padding-left: 55px;
+}
+
+.select{
+    color: grey;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+}
+
+.input{
+    color: #3EFF8B;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+}
+
+.option{
+    color: grey;
+    background-color: black;
+    backdrop-filter: blur(10px)
 }

@@ -1,10 +1,26 @@
 .div{
-    color: #293f14;
+    color: #3EFF8B;
+    flex: content;
+    padding-right: 100px;
+    text-align: left;
+    margin-left: 15px;
+    font-size: smaller;
 }
 
 .image{
     width: 300px;
     height: 300px;
     border-radius: 20px;
-    border: solid #293f14;
+    border: solid #3EFF8B;
+    float: left;
+}
+
+.back{
+    color: #3EFF8B;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: solid 1px;
+    border-color: #3EFF8B;
+    border-radius: 5px;
+    cursor: pointer;
 }

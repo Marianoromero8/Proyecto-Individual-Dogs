@@ -1,10 +1,29 @@
 .landing{
-    color: #293F14;
+    color: #3EFF8B;
+    border: solid 1px;
+    border-color: #3EFF8B;
+    border-radius:12px;
+    padding-bottom: 10px;
+    
 }
 
 .landingButton{
-    color: #293F14;
-    background-color: #31D843;
+    color: #3EFF8B;
+    background-color: #293F14;
     border-radius: 12px;
-    border: 1px solid #293F14;
+    border: 1px solid #3EFF8B;
+    cursor: pointer;
+}
+
+.landingButton:hover{
+    color: #3EFF8B;
+    background: linear-gradient(
+        150deg,
+        #3EFF8B,
+        #386C0B,
+        #293F14
+    );
+    transform:scale(1.1);
+    transition: 1s;
+    
 }

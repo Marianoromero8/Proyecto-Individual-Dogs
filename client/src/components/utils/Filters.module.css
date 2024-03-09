@@ -1,0 +1,14 @@
+.select{
+    color: #3EFF8B;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: solid 1px;
+    border-color: #3EFF8B;
+    border-radius: 5px;
+}
+
+.option{
+    color: #3EFF8B;
+    background-color: black;
+    backdrop-filter: blur(10px);
+}

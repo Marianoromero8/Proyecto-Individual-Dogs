@@ -1,22 +1,38 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import style from './Form.module.css'
+import validations from './validations';
+import { useDispatch } from 'react-redux';
+import { getAllTemperaments } from '../../redux/actions';
 
 const Form = ({onLogin}) => {
 
+  const dispatch = useDispatch()
+
   const [form, setForm] = useState({
-    name:"",
-    tamañomin:"",
-    tamañomax:"",
-    pesomin: "",
-    pesomax: "",
-    años:"",
-    temperamento: []
+    breed:"",
+    heightmin:"",
+    heightmax:"",
+    weightmin: "",
+    weightmax: "",
+    ages:"",
+    temperament: []
   })
   
   const[temp, setTemp] = useState([])
+  const[errors, setErrors] = useState({
+    breed:"",
+    heightmin:"",
+    heightmax:"",
+    weightmin: "",
+    weightmax: "",
+    ages:"",
+    temperament: []
+  })
+  const[focus, setFocus] = useState("")
   
   useEffect(() => {
+    dispatch(getAllTemperaments())
     try{
       axios('http://localhost:3001/api/temperaments')
       .then(response => {
@@ -31,19 +47,23 @@ const Form = ({onLogin}) => {
     }
   }, [])
 
+  useEffect(() => {
+    setErrors(validations(form))
+  }, [form.breed, form.heightmin, form.heightmax, form.weightmin, form.weightmax, form.ages, form.temperament])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     onLogin(form)
     alert("Breed create successfuly")
   }
 
-  const handleChange = (event) => {
+  const handleAdd = (event) => {
     const {name, value} = event.target;
 
-    if(!form.temperamento.includes(value) && form.temperamento.length < 5) {
+    if(!form.temperament.includes(value) && form.temperament.length < 5) {
       setForm({
         ...form,
-        temperamento: [...form.temperamento, value]
+        temperament: [...form.temperament, value]
       })
     } else {
       setForm({
@@ -54,63 +74,87 @@ const Form = ({onLogin}) => {
   }
 
   const handleRemove = (i) => {
-    const freshTemp = [...form.temperamento];
+    const freshTemp = [...form.temperament];
 
     freshTemp.splice(i, 1);
 
     setForm({
       ...form,
-      temperamento: [...freshTemp]
+      temperament: [...freshTemp]
+    })
+  }
+
+  const handleChange = (e) => {
+    const {name, value} = e.target
+
+    setForm({
+      ...form,
+      [name]: value
     })
   }
 
 
+
   return (
-    <div className={style.form}>
+    <div className={style.divForm}>
     
-    <form>
+    <form className={style.form}>
     <h1>Create a new card</h1>
 
     <div>
-      <label htmlFor="nombre">Nombre Raza:</label>
-      <input type="text" name='name' value={form.name} onChange={handleChange} required/>
+      <label htmlFor="breed" className={style.label}>Breed Name:</label>
+      <input type="text" name='breed' placeholder='Breed name...' value={form.breed} onChange={handleChange} className={style.input} required/>
+      {errors.breed && <p>{errors.breed}</p>}
+
+    </div>
+
+    <div onChange={handleChange}>
+      <label htmlFor="height" className={style.label}>Height min and max:</label>
+      <input type="text" name='heightmin' placeholder='Min...' value={form.heightmin} onChange={handleChange} className={style.input} required/>
+      {errors.heightmin && <p>{errors.heightmin}</p>}
+      <input type="text" name="heightmax" placeholder='Max...' value={form.heightmax} onChange={handleChange} className={style.input} required/>
+      {errors.heightmax && <p>{errors.heightmax}</p>}
+
+    </div>
+
+    <div onChange={handleChange}>
+      <label htmlFor="weight" className={style.label}>Weight min & max:</label>
+      <input type="text" name='weightmin' placeholder='Min...' value={form.weightmin} onChange={handleChange} className={style.input} required/>
+      {errors.weightmin && <p>{errors.weightmin}</p>}
+      <input type="text" name="weightmax" placeholder='Max...' value={form.weightmax} onChange={handleChange} className={style.input} required/>
+      {errors.weightmax && <p>{errors.weightmax}</p>}
+
+    </div>
+
+    <div onChange={handleChange}>
+      <label htmlFor="life_span" className={style.label}>Life Span:</label>
+      <input type="number" name='agesmin' placeholder='Min...' value={form.agesmin} onChange={handleChange} className={style.input} required/>
+      {errors.agesmin && <p>{errors.agesmin}</p>}
+      <input type="number" name='agesmax' placeholder='Max...' value={form.agesmax} onChange={handleChange} className={style.input} required/>
+      {errors.agesmax && <p>{errors.agesmax}</p>}
+
+
     </div>
 
     <div>
-      <label htmlFor="height">Altura min & max:</label>
-      <input type="text" name='tamañomin' placeholder='Minimo...' value={form.tamañomin} onChange={handleChange} required/>
-      <input type="text" name="tamañomax" placeholder='Maximo...' value={form.tamañomax} onChange={handleChange} required/>
-    </div>
-
-    <div>
-      <label htmlFor="weight">Peso min & max:</label>
-      <input type="text" name='pesomin' placeholder='Minimo...' value={form.pesomin} onChange={handleChange} required/>
-      <input type="text" name="pesomax" placeholder='Maximo...' value={form.pesomax} onChange={handleChange} required/>
-    </div>
-
-    <div>
-      <label htmlFor="life_span">Años de vida:</label>
-      <input type="number" name='años' placeholder='Años...' value={form.años} onChange={handleChange} required/>
-    </div>
-
-    <div>
-      <label htmlFor="temperament">Temperamentos:</label>
-      <select onChange={handleChange} name="temperament">
+      <label htmlFor="temperaments" className={style.label}>Temperaments:</label>
+      <select onChange={handleAdd} name="temperaments" className={style.select}>
         {
           temp.map( (tp) =>
-            <option key={tp.id} value={tp.name}>{tp.name}</option> )
+            <option key={tp.id} value={tp.name} className={style.option}>{tp.name}</option> )
         }
       </select>
+      {errors.temperament && <p>{errors.temperament}</p>}
       <small>Max 5 temperaments</small>
-      {form.temperamento.map((tempe, i) => (
+      {form.temperament.map((tempe, i) => (
         <div key={i} className={style.tag}>
-          <span>{tempe}</span>
+          <span className={style.span}>{tempe}</span>
           <button className={style.buttonTag} type='button' onClick={() => handleRemove(i)}>X</button>
         </div>
       ))}
     </div>
 
-    <button type='submit' onClick={handleSubmit}>Create</button>
+    <button type='submit' onClick={handleSubmit} className={style.submit}>Create</button>
     </form>
 
     </div>

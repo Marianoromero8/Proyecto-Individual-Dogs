@@ -3,28 +3,32 @@
     width: 150px;
     height: 350px;
     margin-bottom: 25px;
-    border-color: white;
+    border-color: #3EFF8B;
     border:  solid 1px ;
     border-radius: 12px;
     float: left;
 }
 
 .image{
-    border-color: #293f14;
+    border-color: #3EFF8B;
     border-radius: 12px;
     height: 150px;
     width: 150px;
 }
 
 .h1{
+    text-align: center;
     font-size: large;
-    color: #293f14;
+    color: #3EFF8B;
+    font-family: 'Times New Roman', Times, serif;
 }
 .h2{
+    text-align: center;
     font-size: small;
-    color: #293f14;
+    color: #3EFF8B;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .link{
-    color: transparent;
+    color: #3EFF8B;
 }
