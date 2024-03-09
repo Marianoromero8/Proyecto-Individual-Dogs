@@ -7,7 +7,7 @@ import Form from './components/Form/Form';
 import Detail from './components/Detail/Detail'
 import Pagination from './components/Pagination/Pagination';
 import { useDispatch } from 'react-redux';
-import { getAllDogs } from './redux/actions';
+import { getAllDogs, searchByName } from './redux/actions';
 
 
 function App() {
@@ -22,33 +22,12 @@ function App() {
 
 
   const onSearch = async (name) => {
-  try{
-    const {data} = await axios(`http://localhost:3001/api/dogs/name/name?name=${name}`)
-    if(data.length > 0){
-      setDogs(data)
-    } else {
-      alert('¡Breed does not exist!')
-    }
+    dispatch(searchByName(name))
   }
-  catch(error){
-    alert('No found')
-  }
-  }
+
 
 useEffect(() => {
   dispatch(getAllDogs())
-  try{
-  axios('http://localhost:3001/api/dogs')
-  .then(response => {
-    setDogs(response.data);
-  })
-  .catch(error => {
-    return ({error})
-  })
-  }
-  catch(error){
-    return ({error})
-  }
 }, [])
 
   const onClose = (id) => {

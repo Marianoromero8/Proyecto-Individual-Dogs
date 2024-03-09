@@ -1,4 +1,4 @@
-import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER } from "./actions"
+import { BY_NAME, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER } from "./actions"
 
 const initialState = {
     inmutableDogs: [],
@@ -43,36 +43,48 @@ const reducer = (state = initialState, action) => {
                 dogs: orderZA
             }
         case ORDER_WEIGHTASC:
-            const orderweightasc = [...state.inmutableDogs].sort((a, b) => a.weight?.split('-')[1] - b.weight?.split('-')[1])
+            const orderweightasc = [...state.inmutableDogs].sort((a, b) => {
+                const weightA = typeof a.weight === 'string' ? a.weight.split('-')[1] : 0;
+                const weightB = typeof b.weight === 'string' ? b.weight.split('-')[1] : 0;
+                return weightA - weightB
+            })
             return{
                 ...state,
                 dogs: orderweightasc
             }
         case ORDER_WEIGHTDESC:
-            const orderweightdesc = [...state.inmutableDogs].sort((a, b) => b.weight?.split('-')[1] - a.weight?.split('-')[1])
+            const orderweightdesc = [...state.inmutableDogs].sort((a, b) => {
+                const weightA = typeof a.weight === 'string' ? a.weight.split('-')[1] : 0;
+                const weightB = typeof b.weight === 'string' ? b.weight.split('-')[1] : 0;
+                return weightB - weightA
+            }
+            )
             return{
                 ...state,
                 dogs: orderweightdesc
             }
         case ORDER_API:
             if(action.payload === 'All'){
-                return {...state, dogs: [...state.inmutableDogs]}
+                return {
+                    ...state, 
+                    dogs: [...state.inmutableDogs]
+                }
             }
-            const apiDogs = [...state.inmutableDogs].filter(dg => dg.source === 'API')
-            const sortApi = apiDogs.sort((a, b) => a.name.localeCompare(b.name))
+            const apiDogs = [...state.inmutableDogs].filter(dg => !isNaN(dg.id) )
             return{
                 ...state,
-                dogs: sortApi
+                dogs: apiDogs
             }
         case ORDER_DB:
-            if(action.payload === 'All'){
-                return {...state, dogs: [...state.inmutableDogs]}
-            }
-            const dbDogs = [...state.inmutableDogs].filter(dg => dg.source === 'DB');
-            const sortDB = dbDogs.sort((a, b) => a.name.localeCompare(b.name))
+            const dbDogs = [...state.inmutableDogs].filter(dg => isNaN(dg.id));
             return{
                 ...state,
-                dogs: sortDB
+                dogs: dbDogs
+            }
+        case BY_NAME:
+            return{
+                ...state,
+                dogs: action.payload
             }
 
             default:

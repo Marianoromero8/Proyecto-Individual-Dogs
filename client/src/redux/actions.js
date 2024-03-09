@@ -10,6 +10,7 @@ export const FETCH_ERROR = "FETCH_ERROR";
 export const GET_ALL_TEMPERAMENTS = "GET_ALL_TEMPERAMENTS";
 export const ORDER_API = "ORDER_API";
 export const ORDER_DB = "ORDER_DB"
+export const BY_NAME = "BY_NAME"
 
 
 export const getAllDogs = () => {
@@ -81,13 +82,30 @@ export const orderWeightDesc = () => {
 
 export const callDogsApi = () => {
     return {
-        type: ORDER_API
+        type: ORDER_API,
     }
 }
 
 export const callDogsDB = () => {
     return {
-        type: ORDER_DB
+        type: ORDER_DB,    
     }
+}
+
+export const searchByName = (name) => {
+    return async function(dispatch){
+    try{
+    const {data} = await axios.get(`http://localhost:3001/api/dogs/name/name?name=${name}`)
+    return dispatch({
+        type: BY_NAME,
+        payload: data
+    })
+}catch(error){
+    return dispatch({
+        type:FETCH_ERROR,
+        payload: error.message
+    })
+}
+}
 }
 

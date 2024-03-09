@@ -53,7 +53,7 @@ const handleOrigin = (e) => {
         </select>
         <select className={style.select} onChange={handleOrigin}>
           <option value="All" className={style.option}>All</option>
-          <option value="Api" className={style.option}>Api</option>
+          <option value="API" className={style.option}>Api</option>
           <option value="DB" className={style.option}>Data Base</option>
         </select>
         <select name="" id="" className={style.select} onChange={handleOrder}>
