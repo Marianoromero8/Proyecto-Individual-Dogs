@@ -16,6 +16,7 @@ const getDogsFromApi = async (req, res) => {
             image: dog.image.url,
             name: dog.name,
             temperament: dog.temperament,
+            height: dog.height.metric,
             weight: dog.weight.metric,
             imageId: dog.reference_image_id
         }))

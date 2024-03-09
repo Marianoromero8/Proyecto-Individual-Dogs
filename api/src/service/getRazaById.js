@@ -4,13 +4,13 @@ const {API_KEY} = process.env;
 
 const getRazaById = async (id) => {
 
-    const promise = await axios (`https://api.thedogapi.com/v1/images/${id}?api_key=${API_KEY}`);
+    const breedForApi = await axios (`https://api.thedogapi.com/v1/images/${id}?api_key=${API_KEY}`);
     
-    if(!promise.data){
+    if(!breedForApi.data){
         throw Error ("Raza no encontrada")
     }
 
-    const {data: {url, breeds}} = promise;
+    const {data: {url, breeds}} = breedForApi;
 
     const {name, temperament, weight, height, life_span} = breeds[0]
 
