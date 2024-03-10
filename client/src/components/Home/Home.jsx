@@ -5,16 +5,14 @@ import Nav from '../Nav/Nav';
 import style from './Home.module.css'
 import { useSelector } from 'react-redux';
 
-const Home = ({onSearch, dogs, onClose, pagina, porPag}) => {
-
-  const allDogs = useSelector(state => state.dogs)
+const Home = ({dogs, onSearch}) => {
 
   return (
     <div className={style.home}>
       <Nav onSearch={onSearch}/>
       <Filters/>
       <div className={style.divCards}>
-      {allDogs
+      {dogs
       .map((dg) => (
       <Card dg={dg} key={dg.id} />
       ))}

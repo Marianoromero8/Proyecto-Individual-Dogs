@@ -13,28 +13,15 @@ import { getAllDogs, searchByName } from './redux/actions';
 function App() {
 
   const navigate = useNavigate()
-
-  const [dogs, setDogs] = useState([]);
-
   const dispatch = useDispatch()
-
-  
-
 
   const onSearch = async (name) => {
     dispatch(searchByName(name))
   }
 
-
 useEffect(() => {
   dispatch(getAllDogs())
 }, [])
-
-  const onClose = (id) => {
-    setDogs((prevState) => prevState.filter((dog) => {
-      return parseInt(dog.id) !== parseInt(id)
-    }))
-  }
 
   const [access, setAccess] = useState(false)
 
@@ -58,7 +45,7 @@ useEffect(() => {
 
         <Route path='/' element={<Landing/>}/>
 
-        <Route path='/home' element={<Pagination dogs={dogs} onSearch={onSearch} onClose={onClose}/>}/>
+        <Route path='/home' element={<Pagination onSearch={onSearch} />}/>
 
         <Route path='/detail/:imageId' element={<Detail/>}/>
 

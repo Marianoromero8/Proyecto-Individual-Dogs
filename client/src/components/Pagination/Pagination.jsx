@@ -1,49 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Home from '../Home/Home';
-import axios from 'axios';
 import style from './Pagination.module.css'
+import { useSelector } from 'react-redux';
 
-const Pagination = ({dogs, onSearch, onClose}) => {
+const Pagination = ({onSearch}) => {
+    const allDogs = useSelector(state => state.dogs)
 
-    
     const[pagina, setPagina] = useState(1);
     const[porPag, setPorPag] = useState(8);
     const [input, setInput] = useState(1);
-    const [call, setCall] = useState([])
 
-    
-    
-    useEffect(() => {
-        try{
-            axios('http://localhost:3001/api/dogs')
-            .then(response => {
-                setCall(response.data);
-            })
-            .catch(error => {
-                return ({error})
-            })
-        }
-        catch(error){
-            return ({error: error.message})
-        }
-    }, [])
-    
-    
     const startIndex = (pagina - 1) * porPag;
-    const endIndex = Math.min(startIndex + porPag, dogs.length);
-    const showDogs = dogs.slice(startIndex, endIndex)
+    const endIndex = Math.min(startIndex + porPag, allDogs.length);
+    const showDogs = allDogs.slice(startIndex, endIndex)
     
-    
-    const max = Math.ceil(call.length / porPag);
-    
+    const max = Math.ceil(allDogs.length / porPag);
     
     const nextPage = () => {
-        setInput(input + 1);
+        setInput(pagina + 1);
         setPagina(pagina + 1);
     }
 
     const backPage = () => {
-        setInput(input - 1);
+        setInput(pagina - 1);
         setPagina(pagina - 1);
     }
     
@@ -54,11 +33,9 @@ const Pagination = ({dogs, onSearch, onClose}) => {
             setPagina(1);
             setInput(1)
         } else{
-            setPagina((e.target.value))
+            setPagina((val))
         }
     }
-    
-    
     
     const onChange = (e) => {
         setInput(e.target.value)
@@ -66,10 +43,10 @@ const Pagination = ({dogs, onSearch, onClose}) => {
     
     return (
         <>
-      <Home pagina={pagina} porPag={porPag} dogs={showDogs} onSearch={onSearch} onClose={onClose}/>
+      <Home pagina={pagina} porPag={porPag} dogs={showDogs}onSearch={onSearch}/>
       <div className={style.div}>
       <button disabled={pagina === 1 || pagina < 1} onClick={backPage} className={style.button}>Back</button>
-      <input onChange={event => onChange(event)} onClick={event => onInput(event)} name='page' value={input} autoComplete='off' className={style.input}/>
+      <input type='number' min="1" max={max} onChange={event => onChange(event)} onClick={event => onInput(event)}  name='page' value={input} autoComplete='off' readOnly className={style.input}/>
       <button disabled={pagina === Math.ceil(max) || pagina > max} onClick={nextPage} className={style.button}>Next</button>
       <p className={style.p}>de {max}</p>
       </div>

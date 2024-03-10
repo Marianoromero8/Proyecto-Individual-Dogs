@@ -9,8 +9,9 @@ export const GET_ALL_DOGS = "GET_ALL_DOGS";
 export const FETCH_ERROR = "FETCH_ERROR";
 export const GET_ALL_TEMPERAMENTS = "GET_ALL_TEMPERAMENTS";
 export const ORDER_API = "ORDER_API";
-export const ORDER_DB = "ORDER_DB"
-export const BY_NAME = "BY_NAME"
+export const ORDER_DB = "ORDER_DB";
+export const BY_NAME = "BY_NAME";
+export const PAGINATION = "PAGINATION";
 
 
 export const getAllDogs = () => {
@@ -108,4 +109,6 @@ export const searchByName = (name) => {
 }
 }
 }
+
+
 

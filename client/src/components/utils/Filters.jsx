@@ -13,7 +13,6 @@ useEffect(() => {
   dispatch(getAllTemperaments())
 },[])
 
-
 const handleChange = (e) => {
   dispatch(tempFilter(e.target.value))
 }
