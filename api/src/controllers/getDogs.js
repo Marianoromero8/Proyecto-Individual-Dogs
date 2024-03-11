@@ -61,4 +61,3 @@ const getAllsDogs = async (req, res) => {
 }
 
 module.exports = {getAllsDogs};
-

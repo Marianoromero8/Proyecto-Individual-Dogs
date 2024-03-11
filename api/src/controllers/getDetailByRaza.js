@@ -1,9 +1,7 @@
-const { Dog } = require("../db");
 const service = require("../service/getRazaById")
 
 const getDetailByRaza = async (req, res) => {
     const { id } = req.params;
-
     try{
         
     const breed = await service.getRazaById(id)

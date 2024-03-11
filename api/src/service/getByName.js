@@ -7,17 +7,16 @@ const getByName = async (name) => {
     try{
        
     if(!name){
-        throw new Error("Escribir un nombre")
+        throw new Error("Put a breed")
     }
 
     const dogFromApi = await axios(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`);
 
     const dogsArray = dogFromApi.data;
 
-    if(dogsArray.length > 0){    
+    if(dogsArray && dogsArray.length > 0){    
     const {name, temperament, weight, height, life_span, image, id} = dogsArray[0]
     
-
     return [{
         id: id,
         name: name, 
@@ -27,7 +26,7 @@ const getByName = async (name) => {
         ages: life_span, 
         image: image.url 
     }]
-    } 
+    } else {
 
     const dogFromDB = await Dog.findAll({
         where: {name},
@@ -37,15 +36,15 @@ const getByName = async (name) => {
         }
     })
 
-    if(dogFromDB){
+    if(dogFromDB && dogFromDB > 0){
         return dogFromDB
+    } else{
+        throw new Error ("Something wrong!")
     }
-
-
-
+}
     }
     catch(error){
-        throw error;
+        {error.message}
     }
 }
 

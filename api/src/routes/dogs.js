@@ -4,7 +4,6 @@ const {getDetailByRaza} = require("../controllers/getDetailByRaza");
 const {getDogByName} = require("../controllers/getDogByName");
 const {postDog} = require("../controllers/postDogs");
 
-
 router.get("/", getAllsDogs)
 router.get("/:id", getDetailByRaza)
 router.get("/name/:name", getDogByName)

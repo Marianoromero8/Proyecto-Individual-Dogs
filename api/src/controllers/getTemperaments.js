@@ -3,13 +3,10 @@ const { Temperament } = require("../db");
 require ('dotenv').config();
 const {API_KEY} = process.env;
 
-
 const getTemperament = async (req, res) => {
     try{
         
     const response = await axios (`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
-
-    
     const {data} = response;
     
     //                                                 si hay temperamento   lo separo por las comas y luego mapeo uno por uno sin espacios.
@@ -46,7 +43,5 @@ const getTemperamentFromDB = async (req, res) => {
         res.status(400).json({error: error.message})
     }
 }
-
-
 
 module.exports = {getTemperamentFromDB};

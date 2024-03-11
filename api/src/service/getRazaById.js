@@ -3,7 +3,6 @@ require ('dotenv').config();
 const {API_KEY} = process.env;
 
 const getRazaById = async (id) => {
-
     const breedForApi = await axios (`https://api.thedogapi.com/v1/images/${id}?api_key=${API_KEY}`);
     
     if(!breedForApi.data){

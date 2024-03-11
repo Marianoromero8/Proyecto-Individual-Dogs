@@ -1,4 +1,3 @@
-const { Dog } = require("../db")
 const service = require("../service/getByName")
 
 
@@ -8,7 +7,7 @@ const getDogByName = async (req, res) => {
     try{
             
     if(!name){
-        throw new Error("Falta un nombre para buscar")
+        throw new Error("Put a breed to search")
     }
     
     const dogByName = await service.getByName(name)
@@ -17,7 +16,7 @@ const getDogByName = async (req, res) => {
     
     }
     catch(error){
-        res.status(400).json({error: error.message})
+        res.status(400).json({error:"Something is wrong, check the name"})
     }
 
 }
