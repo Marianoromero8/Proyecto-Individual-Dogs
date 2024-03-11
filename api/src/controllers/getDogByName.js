@@ -1,6 +1,5 @@
 const service = require("../service/getByName")
 
-
 const getDogByName = async (req, res) => {
     const { name } = req.query;
 
