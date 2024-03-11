@@ -3,7 +3,6 @@ import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import style from './Detail.module.css'
 
-
 const Detail = () => {
 
   const { imageId } = useParams();
