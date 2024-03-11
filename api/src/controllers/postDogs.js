@@ -3,7 +3,7 @@ const { Dog, Temperament } = require("../db")
 const postDog = async (req, res) => {
     const {name, height, weight, life_span, image, temperament} = req.body;
 
-    if(!name || !height || !weight || !life_span || !temperament || !image){
+    if(!name || !height || !weight || !life_span ){
         return res.status(401).json({message: "Faltan datos"})
     }
 
@@ -20,14 +20,13 @@ const postDog = async (req, res) => {
                 temperament: temperament
             }
         })
-
         
-        
-        const temperamentDB = await Temperament.findAll({
-            where: {name: temperament}
+        temperament.forEach(async t => {    
+            const temp = await Temperament.findOne({where: {name: t}});
+            if(temp){
+                await dog.addTemperament(temp)
+            }
         })
-
-        dog.addTemperament(temperamentDB)
 
         if(created){
             res.status(201).json(dog)
