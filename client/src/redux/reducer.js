@@ -85,7 +85,6 @@ const reducer = (state = initialState, action) => {
         case POST_DOG:
             return{
                 ...state,
-                dogs: action.payload
             }
         case POST_DOG_FAIL: 
             return{
