@@ -1,38 +1,60 @@
 export default (form) => {
     let errors = {};
 
-    if(!form.breed || !form.heightmin || !form.heightmax || !form.weightmin || !form.weightmax || !form.ages || !form.temperament.length){
-        errors = "Complete all data"
+    const regexName = /^([a-zA-Z ]+)$/i;
+    const regexImg = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/i;
+    const regexNum = /^([0-9])*$/
+
+
+    if(!form.name){
+        errors.name = "The field cant be empty";
+    } else if(!form.heightmin || !form.heightmax){
+        errors.height = "The field HEIGHT cant be empty";
+    } else if(!form.weightmin || !form.weightmax){
+        errors.weight = "The field WEIGHT cant be empty";
+    } else if(!form.temperaments || form.temperaments.length < 2){
+        errors.temperaments = "Select at least two";
     }
 
-    if(form.breed.length > 20){
-        errors.breed = "Breed Name is to long"
+    if(form.name && !regexName.test(form.name)){
+        errors.name = "The name cant have special characters or numbers"
     }
 
-    if(form.breed.match(/^[A-Z]/)){
-        errors.breed = "Breed name must start with a capital letter"
+    if(form.heightmin && !regexNum.test(form.heightmin)){
+        errors.heightmin = "ONLY NUMBERS BETWEEN 10 AND 200!"
+    }
+    if(form.heightmax && !regexNum.test(form.heightmax)){
+        errors.heightmax = "ONLY NUMBERS BETWEEN 10 AND 200"
+    }
+    if(form.weightmin && !regexNum.test(form.weightmin)){
+        errors.weightmin = "ONLY NUMBERS BETWEEN 1 AND 200"
+    }
+    if(form.weightmax && !regexNum.test(form.weightmax)){
+        errors.weightmax = "ONLY NUMBERS BETWEEN 1 AND 200"
+    }
+    if(form.agesmin && !regexNum.test(form.agesmin)){
+        errors.agesmin = "ONLY NUMBERS BETWEEN 1 AND 25"
+    }
+    if(form.agesmax && !regexNum.test(form.agesmax)){
+        errors.agesmax = "ONLY NUMBERS BETWEEN 1 AND 25"
     }
 
-    if(form.weightmin > form.weightmax){
-        errors.weightmin = "Weight min must be less than max"
+    if(form.image && !regexImg.test(form.image)){
+        errors.image = "Verify the file, something is wrong"
     }
 
-    if(form.weightmax < form.weightmin){
-        errors.weightmax = "Weight max must be bigger than min"
+    if(form.heightmin >= form.heightmax){
+        errors.height = "Verify the fields, a number is wrong"
     }
 
-    if(form.agesmin < 1){
-        errors.agesmin = "Age min must be bigger than 0"
+    if(form.weightmin >= form.weightmax){
+        errors.weight = "Verify the fields, a number is wrong"
     }
 
-    if(form.agesmax > 22){
-        errors.agesmax = "Age max must be less than 22"
+    if(form.agesmin >= form.agesmax){
+        errors.ages = "Verify the fields, a number is wrong"
     }
 
-    if(form.temperament.length > 5){
-        errors.temperament = "Temperaments only 5"
-    }
-
-    return Object.keys(errors).length > 0 ? errors : {};
+    return errors;
 
 }

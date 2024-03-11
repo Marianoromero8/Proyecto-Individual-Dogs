@@ -1,8 +1,14 @@
 .form{
     color: #3EFF8B;
-    border: solid 1px;
-    display: flex;
-    margin: auto;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: 1px solid;
+    flex: content;
+    justify-content: space-between;
+    padding: 20px;
+    display: inline-block;
+    justify-content: space-between;
+    
 }
 
 .tag{
@@ -41,4 +47,44 @@
     color: grey;
     background-color: black;
     backdrop-filter: blur(10px)
+}
+
+.backHome{
+    color: #3EFF8B;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: solid 1px;
+    border-color: #3EFF8B;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.backHome:hover{
+    color: #293F14;
+    background-color: #3EFF8B;
+    border-color: #293F14;
+    cursor: pointer;
+}
+
+.submit{
+    color: #3EFF8B;
+    width: 150px;
+    height: 50px;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: solid 1px;
+    border-color: #3EFF8B;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit:hover{
+    color: #293F14;
+    background-color: #3EFF8B;
+    border-color: #293F14;
+    cursor: pointer;
+}
+
+.errors{
+    color: red;
 }

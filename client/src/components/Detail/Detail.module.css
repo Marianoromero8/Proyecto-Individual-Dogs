@@ -24,3 +24,10 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.back:hover{
+    color: #293F14;
+    background-color: #3EFF8B;
+    border-color: #293F14;
+    cursor: pointer;
+}

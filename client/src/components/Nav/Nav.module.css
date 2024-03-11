@@ -4,6 +4,12 @@
     border: solid 1px;
     border-color: #3EFF8B;
     border-radius: 5px;
+    height: 25px;
+    width: 15px 15px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 0%;
 }
 
 .create:hover{
@@ -11,4 +17,22 @@
     background-color: #3EFF8B;
     border-color: #293F14;
     cursor: pointer;
+}
+.home{
+    color: #3EFF8B;
+    background-color: transparent;
+    border: solid 1px;
+    border-color: #3EFF8B;
+    border-radius: 5px;
+}
+
+.home:hover{
+    color: #293F14;
+    background-color: #3EFF8B;
+    border-color: #293F14;
+    cursor: pointer;
+}
+
+.div{
+    padding-bottom: 10px;
 }

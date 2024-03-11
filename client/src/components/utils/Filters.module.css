@@ -12,3 +12,9 @@
     background-color: black;
     backdrop-filter: blur(10px);
 }
+
+.divFil{
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}

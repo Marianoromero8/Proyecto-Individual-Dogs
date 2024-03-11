@@ -12,6 +12,8 @@ export const ORDER_API = "ORDER_API";
 export const ORDER_DB = "ORDER_DB";
 export const BY_NAME = "BY_NAME";
 export const PAGINATION = "PAGINATION";
+export const POST_DOG = "POST_DOG";
+export const POST_DOG_FAIL = "POST_DOG_FAIL"
 
 
 export const getAllDogs = () => {
@@ -110,5 +112,21 @@ export const searchByName = (name) => {
 }
 }
 
-
+export const postDog = (payload) => {
+    return async function(dispatch){
+        try{
+        const post = await axios.post('/register', payload)
+        return dispatch({
+            type: POST_DOG,
+            payload: post.data
+        })
+        }
+        catch(error){
+           dispatch({
+            type: POST_DOG_FAIL,
+            payload: error.response.data
+        })
+    }
+    }
+}
 

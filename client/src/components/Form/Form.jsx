@@ -1,69 +1,73 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import style from './Form.module.css'
 import validations from './validations';
-import { useDispatch } from 'react-redux';
-import { getAllTemperaments } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllTemperaments, postDog } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
 
-const Form = ({onLogin}) => {
-
+const Form = () => {
+  const allTemperaments = useSelector(state => state.temperaments)
+  const navigate = useNavigate();
   const dispatch = useDispatch()
 
-  const [form, setForm] = useState({
-    breed:"",
-    heightmin:"",
-    heightmax:"",
-    weightmin: "",
-    weightmax: "",
-    ages:"",
-    temperament: []
-  })
-  
-  const[temp, setTemp] = useState([])
-  const[errors, setErrors] = useState({
-    breed:"",
-    heightmin:"",
-    heightmax:"",
-    weightmin: "",
-    weightmax: "",
-    ages:"",
-    temperament: []
-  })
-  const[focus, setFocus] = useState("")
-  
   useEffect(() => {
-    dispatch(getAllTemperaments())
-    try{
-      axios('http://localhost:3001/api/temperaments')
-      .then(response => {
-          setTemp(response.data);
-       })
-      .catch(error => {
-          return ({error})
-       })
-      }
-    catch(error){
-      return ({error})
-    }
-  }, [])
+    dispatch(getAllTemperaments(allTemperaments))
+  },[])
 
+  const[errors, setErrors] = useState({
+    name:"",
+    heightmin:"",
+    heightmax:"",
+    weightmin: "",
+    weightmax: "",
+    agesmin:"",
+    agesmax:"",
+    temperaments: []
+  })
+  const [form, setForm] = useState({
+    name:"",
+    heightmin:"",
+    heightmax:"",
+    weightmin: "",
+    weightmax: "",
+    agesmin:"",
+    agesmax:"",
+    temperaments: []
+  })
+  
   useEffect(() => {
     setErrors(validations(form))
-  }, [form.breed, form.heightmin, form.heightmax, form.weightmin, form.weightmax, form.ages, form.temperament])
+  }, [form.name, form.heightmin, form.heightmax, form.weightmin, form.weightmax, form.ages, form.temperaments])
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onLogin(form)
-    alert("Breed create successfuly")
+    if (form.name && form.weightmin && form.weightmax && form.heightmin && form.heightmax && form.agesmin && form.agesmax && form.temperaments.length > 1
+    ) {
+      dispatch(postDog(form));
+      setForm({
+        name: "",
+        heightmin: "",
+        heightmax: "",
+        weightmin: "",
+        weightmax: "",
+        agemin: "",
+        agemax: "",
+        image: "",
+        temperaments: [],
+      });
+      alert("Breed created");
+    } else {
+      alert("All Necessary fields must be filled");
+    }
   }
 
   const handleAdd = (event) => {
     const {name, value} = event.target;
 
-    if(!form.temperament.includes(value) && form.temperament.length < 5) {
+    if(!form.temperaments.includes(value) && form.temperaments.length < 5) {
       setForm({
         ...form,
-        temperament: [...form.temperament, value]
+        temperaments: [...form.temperaments, value]
       })
     } else {
       setForm({
@@ -74,13 +78,13 @@ const Form = ({onLogin}) => {
   }
 
   const handleRemove = (i) => {
-    const freshTemp = [...form.temperament];
+    const freshTemp = [...form.temperaments];
 
     freshTemp.splice(i, 1);
 
     setForm({
       ...form,
-      temperament: [...freshTemp]
+      temperaments: [...freshTemp]
     })
   }
 
@@ -93,60 +97,67 @@ const Form = ({onLogin}) => {
     })
   }
 
-
-
   return (
     <div className={style.divForm}>
     
-    <form className={style.form}>
+    <form onSubmit={(event) => handleSubmit(event)} className={style.form}>
     <h1>Create a new card</h1>
 
     <div>
-      <label htmlFor="breed" className={style.label}>Breed Name:</label>
-      <input type="text" name='breed' placeholder='Breed name...' value={form.breed} onChange={handleChange} className={style.input} required/>
-      {errors.breed && <p>{errors.breed}</p>}
+      <label htmlFor="name" className={style.label}>Breed Name:</label>
+      <input type="text" name='name' placeholder='Breed name...' value={form.name} onChange={handleChange} className={style.input} required/>
+      {errors.name && <p className={style.errors}>{errors.name}</p>}
 
     </div>
 
     <div onChange={handleChange}>
-      <label htmlFor="height" className={style.label}>Height min and max:</label>
+      <label htmlFor="height" name='height' className={style.label}>Height min and max:</label>
+      {errors.height && <p className={style.errors}>{errors.height}</p>}
       <input type="text" name='heightmin' placeholder='Min...' value={form.heightmin} onChange={handleChange} className={style.input} required/>
-      {errors.heightmin && <p>{errors.heightmin}</p>}
+      {errors.heightmin && <p className={style.errors}>{errors.heightmin}</p>}
       <input type="text" name="heightmax" placeholder='Max...' value={form.heightmax} onChange={handleChange} className={style.input} required/>
-      {errors.heightmax && <p>{errors.heightmax}</p>}
+      {errors.heightmax && <p className={style.errors}>{errors.heightmax}</p>}
 
     </div>
 
     <div onChange={handleChange}>
-      <label htmlFor="weight" className={style.label}>Weight min & max:</label>
+      <label htmlFor="weight" name='weight' className={style.label}>Weight min & max:</label>
+      {errors.weight && <p className={style.errors}>{errors.weight}</p>}
       <input type="text" name='weightmin' placeholder='Min...' value={form.weightmin} onChange={handleChange} className={style.input} required/>
-      {errors.weightmin && <p>{errors.weightmin}</p>}
+      {errors.weightmin && <p className={style.errors}>{errors.weightmin}</p>}
       <input type="text" name="weightmax" placeholder='Max...' value={form.weightmax} onChange={handleChange} className={style.input} required/>
-      {errors.weightmax && <p>{errors.weightmax}</p>}
+      {errors.weightmax && <p className={style.errors}>{errors.weightmax}</p>}
 
     </div>
 
     <div onChange={handleChange}>
-      <label htmlFor="life_span" className={style.label}>Life Span:</label>
-      <input type="number" name='agesmin' placeholder='Min...' value={form.agesmin} onChange={handleChange} className={style.input} required/>
-      {errors.agesmin && <p>{errors.agesmin}</p>}
-      <input type="number" name='agesmax' placeholder='Max...' value={form.agesmax} onChange={handleChange} className={style.input} required/>
-      {errors.agesmax && <p>{errors.agesmax}</p>}
+      <label htmlFor="life_span" name='ages' className={style.label}>Life Span:</label>
+      {errors.ages && <p className={style.errors}>{errors.ages}</p>}
+      <input type="text" name='agesmin' placeholder='Min...' value={form.agesmin} onChange={handleChange} className={style.input} required/>
+      {errors.agesmin && <p className={style.errors}>{errors.agesmin}</p>}
+      <input type="text" name='agesmax' placeholder='Max...' value={form.agesmax} onChange={handleChange} className={style.input} required/>
+      {errors.agesmax && <p className={style.errors}>{errors.agesmax}</p>}
 
 
     </div>
 
     <div>
-      <label htmlFor="temperaments" className={style.label}>Temperaments:</label>
+      <label htmlFor="img" name='img'>Image:</label>
+      <input type="file" name='image' placeholder='URL or file...' onChange={handleChange}/>
+      {errors.image && <p className={style.errors}>{errors.image}</p>}
+    </div>
+
+    <div>
+      <label htmlFor="temperaments" name='temperaments' className={style.label}>Temperaments:</label>
       <select onChange={handleAdd} name="temperaments" className={style.select}>
         {
-          temp.map( (tp) =>
+          allTemperaments.map( (tp) =>
             <option key={tp.id} value={tp.name} className={style.option}>{tp.name}</option> )
         }
       </select>
-      {errors.temperament && <p>{errors.temperament}</p>}
+      {errors.temperaments && <p className={style.errors}>{errors.temperaments}</p>}
       <small>Max 5 temperaments</small>
-      {form.temperament.map((tempe, i) => (
+      {form.temperaments.map((tempe, i) => (
         <div key={i} className={style.tag}>
           <span className={style.span}>{tempe}</span>
           <button className={style.buttonTag} type='button' onClick={() => handleRemove(i)}>X</button>
@@ -154,8 +165,12 @@ const Form = ({onLogin}) => {
       ))}
     </div>
 
-    <button type='submit' onClick={handleSubmit} className={style.submit}>Create</button>
+    <button type='submit' className={style.submit}>Create</button>
     </form>
+
+    <div>
+      <button onClick={() => {navigate("/home")}} className={style.backHome}>Back Home</button>
+    </div>
 
     </div>
 

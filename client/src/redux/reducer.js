@@ -1,4 +1,4 @@
-import { BY_NAME, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER } from "./actions"
+import { BY_NAME, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER, POST_DOG, POST_DOG_FAIL } from "./actions"
 
 const initialState = {
     inmutableDogs: [],
@@ -22,7 +22,9 @@ const reducer = (state = initialState, action) => {
 
         case TEMP_FILTER:
             if(action.payload === 'All'){
-                return {...state, dogs: [...state.inmutableDogs]}
+                return {
+                    ...state, 
+                    dogs: [...state.inmutableDogs]}
             }
             const filtByTemp = [...state.inmutableDogs].filter(dg => dg.temperament?.includes(action.payload))
             return{
@@ -64,12 +66,6 @@ const reducer = (state = initialState, action) => {
                 dogs: orderweightdesc
             }
         case ORDER_API:
-            if(action.payload === 'All'){
-                return {
-                    ...state, 
-                    dogs: [...state.inmutableDogs]
-                }
-            }
             const apiDogs = [...state.inmutableDogs].filter(dg => !isNaN(dg.id) )
             return{
                 ...state,
@@ -85,6 +81,16 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 dogs: action.payload
+            }
+        case POST_DOG:
+            return{
+                ...state,
+                dogs: action.payload
+            }
+        case POST_DOG_FAIL: 
+            return{
+                ...state,
+                error: action.payload
             }
         
             default:

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import style from './SearchBar.module.css'
 
 const SearchBar = ({onSearch}) => {
-
   const [state, setState] = useState("");
 
   const handleChange = (event) => {
@@ -17,7 +16,6 @@ const SearchBar = ({onSearch}) => {
 
     setState("")
   }
-
 
   return (
     <form onSubmit={handleClick} className={style.form}>
