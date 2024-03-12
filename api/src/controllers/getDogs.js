@@ -3,7 +3,6 @@ require ('dotenv').config();
 const {API_KEY} = process.env;
 const {Dog, Temperament} = require ('../db')
 
-
 const getDogsFromApi = async (req, res) => {
     //Llamo a toda la api y luego en el front mapeo para que aparezcan solo unas pocas cartas.
     try{

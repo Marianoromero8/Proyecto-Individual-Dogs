@@ -15,7 +15,7 @@ const getByName = async (name) => {
     const dogsArray = dogFromApi.data;
 
     if(dogsArray && dogsArray.length > 0){    
-    const {name, temperament, weight, height, life_span, image, id} = dogsArray[0]
+    const {name, temperament, weight, height, life_span, image, id, reference_image_id} = dogsArray[0]
     
     return [{
         id: id,
@@ -24,7 +24,8 @@ const getByName = async (name) => {
         weight: weight.metric, 
         height: height.metric, 
         ages: life_span, 
-        image: image.url 
+        image: image.url,
+        imageId: reference_image_id 
     }]
     } else {
 
