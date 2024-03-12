@@ -9,7 +9,7 @@ const getDogsFromApi = async (req, res) => {
         const response = await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
 
         const { data } = response;
-        //mapeo para que solo aparezca el nombre, imagen y origin. Luego en el front voy a poner un icono de ¡ para los detalles donde aparecera el resto
+        //mapeo para llamar los siguientes datos
         const dogs = data.map(dog => ({
             id: dog.id,
             image: dog.image.url,
