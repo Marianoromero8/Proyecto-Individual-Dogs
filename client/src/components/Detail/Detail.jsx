@@ -3,9 +3,8 @@ import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import style from './Detail.module.css'
 
-const Detail = () => {
+const Detail = ({imageId, toggelModal}) => {
 
-  const { imageId } = useParams();
   const [breed, setBreed] = useState();
   const navigate = useNavigate();
 
@@ -36,7 +35,7 @@ const Detail = () => {
    <h2 className={style.h2}>Ages: {breed.life_span}</h2>
    </div>
 
-   <button onClick={() => {navigate("/home")}} className={style.back}>Back</button>
+   <button onClick={toggelModal} className={style.back}>Close</button>
           
   </div>
   </>

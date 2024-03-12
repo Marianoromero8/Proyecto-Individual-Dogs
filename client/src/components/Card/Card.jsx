@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import style from './Card.module.css'
+import Detail from '../Detail/Detail';
 
 const Card = ({dg}) => {
+  const[modal, setModal] = useState(false)
+
+  const toggelModal = () => setModal(!modal)
 
   return (
-  <Link to={`/detail/${dg.imageId}`} className={style.link}>
+  <div onClick={toggelModal} className={style.link}>
 
     <div className={style.card}>
       <img src={dg.image} alt={dg.name} className={style.image}/>
@@ -13,8 +17,10 @@ const Card = ({dg}) => {
       <h2 className={style.h2}>Temperament: {dg.temperament}</h2>
       <h2 className={style.h2}>Weight: {dg.weight} kg</h2>
     </div>
-
-  </Link>
+    {modal && <div className={style.detail}>
+      <Detail imageId={dg.imageId} toggelModal={toggelModal}/>
+    </div>}
+  </div>
   )
 }
 

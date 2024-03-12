@@ -2,8 +2,12 @@ export default (form) => {
     let errors = {};
 
     const regexName = /^([a-zA-Z ]+)$/i;
-    const regexImg = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/i;
-    const regexNum = /^([0-9])*$/
+    const regexImg = /\.(jpg|jpeg|png|gif)$/i;
+    const regexNum1Al200 = /^(1?\d{1,2}|200)$/;
+    const regexNum10Al200 = /^(1\d\d|[1-9]\d|200)$/;
+    const regexNum1Al25 = /^(0*[1-9]|1\d|2[0-5])$/;
+
+
 
 
     if(!form.name){
@@ -20,27 +24,23 @@ export default (form) => {
         errors.name = "The name cant have special characters or numbers"
     }
 
-    if(form.heightmin && !regexNum.test(form.heightmin)){
+    if(form.heightmin && !regexNum10Al200.test(form.heightmin)){
         errors.heightmin = "ONLY NUMBERS BETWEEN 10 AND 200!"
     }
-    if(form.heightmax && !regexNum.test(form.heightmax)){
+    if(form.heightmax && !regexNum10Al200.test(form.heightmax)){
         errors.heightmax = "ONLY NUMBERS BETWEEN 10 AND 200"
     }
-    if(form.weightmin && !regexNum.test(form.weightmin)){
+    if(form.weightmin && !regexNum1Al200.test(form.weightmin)){
         errors.weightmin = "ONLY NUMBERS BETWEEN 1 AND 200"
     }
-    if(form.weightmax && !regexNum.test(form.weightmax)){
+    if(form.weightmax && !regexNum1Al200.test(form.weightmax)){
         errors.weightmax = "ONLY NUMBERS BETWEEN 1 AND 200"
     }
-    if(form.agesmin && !regexNum.test(form.agesmin)){
+    if(form.agesmin && !regexNum1Al25.test(form.agesmin)){
         errors.agesmin = "ONLY NUMBERS BETWEEN 1 AND 25"
     }
-    if(form.agesmax && !regexNum.test(form.agesmax)){
+    if(form.agesmax && !regexNum1Al25.test(form.agesmax)){
         errors.agesmax = "ONLY NUMBERS BETWEEN 1 AND 25"
-    }
-
-    if(form.image && !regexImg.test(form.image)){
-        errors.image = "Verify the file, something is wrong"
     }
 
     if(form.heightmin >= form.heightmax){

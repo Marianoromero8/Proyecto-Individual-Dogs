@@ -115,7 +115,7 @@ export const searchByName = (name) => {
 export const postDog = (payload) => {
     return async function(dispatch){
         try{
-        const post = await axios.post('/register', payload)
+        const post = await axios.post('http://localhost:3001/api/dogs', payload)
         return dispatch({
             type: POST_DOG,
             payload: post.data

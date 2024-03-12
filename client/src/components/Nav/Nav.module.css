@@ -18,6 +18,21 @@
     border-color: #293F14;
     cursor: pointer;
 }
+
+.span{
+    color: #3EFF8B;
+    font-size: xx-large;
+    display: block;
+    font-family: 'Times New Roman', Times, serif;
+    white-space: nowrap;
+    border-right: 4px solid;
+    width: 12ch;
+
+    animation: typing 5s steps(12),
+    blink .5s infinite step-end alternate;
+    overflow: hidden;
+}
+
 .home{
     color: #3EFF8B;
     background-color: transparent;
@@ -35,4 +50,12 @@
 
 .div{
     padding-bottom: 10px;
+}
+
+@keyframes typing {
+    from { width: 0 }
+}
+
+@keyframes blink {
+    50% {border-color: transparent}
 }

@@ -37,11 +37,11 @@ const Form = () => {
   
   useEffect(() => {
     setErrors(validations(form))
-  }, [form.name, form.heightmin, form.heightmax, form.weightmin, form.weightmax, form.ages, form.temperaments])
+  }, [form.name, form.heightmin, form.heightmax, form.weightmin, form.weightmax, form.agesmin, form.agesmax, form.temperaments])
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (form.name && form.weightmin && form.weightmax && form.heightmin && form.heightmax && form.agesmin && form.agesmax && form.temperaments.length > 1
+    if (form.name && form.weightmin && form.weightmax && form.heightmin && form.heightmax && form.agesmin && form.agesmax && form.temperaments.length
     ) {
       dispatch(postDog(form));
       setForm({
@@ -69,12 +69,7 @@ const Form = () => {
         ...form,
         temperaments: [...form.temperaments, value]
       })
-    } else {
-      setForm({
-        ...form,
-        [name]: value
-      });
-    }    
+    } 
   }
 
   const handleRemove = (i) => {
@@ -149,7 +144,7 @@ const Form = () => {
 
     <div>
       <label htmlFor="temperaments" name='temperaments' className={style.label}>Temperaments:</label>
-      <select onChange={handleAdd} name="temperaments" className={style.select}>
+      <select onChange={handleAdd} disabled={form.temperaments.length === 5} name="temperaments" className={style.select}>
         {
           allTemperaments.map( (tp) =>
             <option key={tp.id} value={tp.name} className={style.option}>{tp.name}</option> )

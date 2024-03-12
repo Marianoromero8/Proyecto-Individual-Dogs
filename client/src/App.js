@@ -30,7 +30,7 @@ function App() {
 
         <Route path='/home' element={<Pagination onSearch={onSearch} />}/>
 
-        <Route path='/detail/:imageId' element={<Detail/>}/>
+        {/* <Route path='/detail/:imageId' element={<Detail/>}/> */}
 
         <Route path='/register' element={<Form />}/>
 

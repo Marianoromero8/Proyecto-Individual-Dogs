@@ -8,6 +8,7 @@ const Nav = ({onSearch}) => {
 
   return (
     <div className={style.div}>
+    <span className={style.span}>The Dogs API</span>
     <SearchBar onSearch={onSearch}/>
     <button onClick={() => {navigate('/register')}} className={style.create}>Add new breed</button>
     </div>

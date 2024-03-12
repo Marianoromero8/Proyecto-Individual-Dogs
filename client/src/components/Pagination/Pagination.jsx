@@ -46,7 +46,7 @@ const Pagination = ({onSearch}) => {
       <Home pagina={pagina} porPag={porPag} dogs={showDogs}onSearch={onSearch}/>
       <div className={style.div}>
       <button disabled={pagina === 1 || pagina < 1} onClick={backPage} className={style.button}>Back</button>
-      <input type='number' min="1" max={max} onChange={event => onChange(event)} onClick={event => onInput(event)}  name='page' value={input} autoComplete='off' readOnly className={style.input}/>
+      <input type='number' min="1" max={max} disabled onChange={event => onChange(event)} onClick={event => onInput(event)}  name='page' value={input} autoComplete='off' readOnly className={style.input}/>
       <button disabled={pagina === Math.ceil(max) || pagina > max} onClick={nextPage} className={style.button}>Next</button>
       <p className={style.p}>de {max}</p>
       </div>
