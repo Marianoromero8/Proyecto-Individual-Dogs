@@ -45,7 +45,7 @@ const getByName = async (name) => {
 }
     }
     catch(error){
-        {error.message}
+        {error.message = "Dog doesnt exist"}
     }
 }
 
