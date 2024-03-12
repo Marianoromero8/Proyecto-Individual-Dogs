@@ -3,7 +3,6 @@ import {Routes, Route} from 'react-router-dom';
 import { useEffect } from 'react';
 import Landing from './components/Landing/Landing';
 import Form from './components/Form/Form';
-import Detail from './components/Detail/Detail'
 import Pagination from './components/Pagination/Pagination';
 import { useDispatch } from 'react-redux';
 import { getAllDogs, searchByName } from './redux/actions';
@@ -29,8 +28,6 @@ function App() {
         <Route path='/' element={<Landing/>}/>
 
         <Route path='/home' element={<Pagination onSearch={onSearch} />}/>
-
-        {/* <Route path='/detail/:imageId' element={<Detail/>}/> */}
 
         <Route path='/register' element={<Form />}/>
 

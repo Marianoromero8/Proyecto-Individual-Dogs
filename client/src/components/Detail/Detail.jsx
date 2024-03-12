@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import style from './Detail.module.css'
 
 const Detail = ({imageId, toggelModal}) => {
-
   const [breed, setBreed] = useState();
-  const navigate = useNavigate();
 
   useEffect(() => {
      axios(`http://localhost:3001/api/dogs/${imageId}`)

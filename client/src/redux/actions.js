@@ -15,7 +15,6 @@ export const PAGINATION = "PAGINATION";
 export const POST_DOG = "POST_DOG";
 export const POST_DOG_FAIL = "POST_DOG_FAIL"
 
-
 export const getAllDogs = () => {
     return async function(dispatch){
         try{
@@ -49,49 +48,6 @@ export const getAllTemperaments = () => {
                 payload: error.message
             })
         }
-    }
-}
-
-export const tempFilter = (filter) => {
-    return {
-        type: TEMP_FILTER,
-        payload: filter
-    }
-}
-
-
-export const orderAZ = () => {
-    return {
-        type: ORDER_AZ,
-    }
-}
-
-export const orderZA = () => {
-    return {
-        type: ORDER_ZA,
-    }
-}
-
-export const orderWeightAsc = () => {
-    return {
-        type: ORDER_WEIGHTASC,
-    }
-}
-export const orderWeightDesc = () => {
-    return {
-        type: ORDER_WEIGHTDESC,
-    }
-}
-
-export const callDogsApi = () => {
-    return {
-        type: ORDER_API,
-    }
-}
-
-export const callDogsDB = () => {
-    return {
-        type: ORDER_DB,    
     }
 }
 
@@ -129,4 +85,47 @@ export const postDog = (payload) => {
     }
     }
 }
+
+export const tempFilter = (filter) => {
+    return {
+        type: TEMP_FILTER,
+        payload: filter
+    }
+}
+
+export const orderAZ = () => {
+    return {
+        type: ORDER_AZ,
+    }
+}
+
+export const orderZA = () => {
+    return {
+        type: ORDER_ZA,
+    }
+}
+
+export const orderWeightAsc = () => {
+    return {
+        type: ORDER_WEIGHTASC,
+    }
+}
+export const orderWeightDesc = () => {
+    return {
+        type: ORDER_WEIGHTDESC,
+    }
+}
+
+export const callDogsApi = () => {
+    return {
+        type: ORDER_API,
+    }
+}
+
+export const callDogsDB = () => {
+    return {
+        type: ORDER_DB,    
+    }
+}
+
 
