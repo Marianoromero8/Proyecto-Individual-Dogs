@@ -1,35 +1,41 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import style from './Detail.module.css'
+import axios from 'axios'
 
 const Detail = ({imageId, toggelModal}) => {
-  const [breed, setBreed] = useState();
+  const[img, setImg] = useState({})
+
 
   useEffect(() => {
-     axios(`http://localhost:3001/api/dogs/${imageId}`)
-        .then(
-        ({data}) => {
-          setBreed(data);
-        })
-        .catch(() => {alert ("Error found")})
+    const resData = async () => {
+      try{
+      const {data} = await axios.get(`http://localhost:3001/api/dogs/${imageId}`)
+      setImg(data)
+      }
+      catch(error){
+       console.log(error)
+       throw Error (error.message)
+      }
+    }
+    resData()
   }, [])
-
-  return breed ? ( 
+ 
+  return img ? ( 
 
   <>
   <div className={style.div}>
    
    <div>
-   <img src={breed.image} alt={breed.name} className={style.image}/>
+   <img src={img.image} alt={img.name} className={style.image}/>
    </div>
    
    <div>
-   <h1 className={style.name}>{breed.name}</h1>
-   <h2 className={style.h2}>#{breed.id}</h2>
-   <h2 className={style.h2}>Height: {breed.height}cm</h2>
-   <h2 className={style.h2}>Weight: {breed.weight}kg</h2>
-   <h2 className={style.h2}>Temperament: {breed.temperament}</h2>
-   <h2 className={style.h2}>Ages: {breed.life_span}</h2>
+   <h1 className={style.name}>{img.name}</h1>
+   <h2 className={style.h2}>#{img.id}</h2>
+   <h2 className={style.h2}>Height: {img.heightmin} - {img.heightmax}cm</h2>
+   <h2 className={style.h2}>Weight: {img.weightmin} - {img.weightmax}kg</h2>
+   <h2 className={style.h2}>Temperament: {img.temperament}</h2>
+   <h2 className={style.h2}>Age: {img.agemin} to {img.agemax} years</h2>
    </div>
 
    <button onClick={toggelModal} className={style.back}>Close</button>

@@ -27,8 +27,7 @@ const Pagination = ({onSearch}) => {
     }
     
     const onInput = (e) => {
-        const val = (e.target.value)
-        
+        const val = (e.target.value)  
         if ( val < 1 || val > Math.ceil(max) || isNaN(val)){
             setPagina(1);
             setInput(1)

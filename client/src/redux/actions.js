@@ -13,7 +13,8 @@ export const ORDER_DB = "ORDER_DB";
 export const BY_NAME = "BY_NAME";
 export const PAGINATION = "PAGINATION";
 export const POST_DOG = "POST_DOG";
-export const POST_DOG_FAIL = "POST_DOG_FAIL"
+export const POST_DOG_FAIL = "POST_DOG_FAIL";
+export const GET_DETAIL = "GET_DETAIL";
 
 export const getAllDogs = () => {
     return async function(dispatch){
@@ -59,7 +60,8 @@ export const searchByName = (name) => {
         type: BY_NAME,
         payload: data
     })
-}catch(error){
+    }
+    catch(error){
     return dispatch({
         type:FETCH_ERROR,
         payload: error.message
@@ -68,10 +70,28 @@ export const searchByName = (name) => {
 }
 }
 
+export const getDetail = (imageId) => {
+    return async function(dispatch){
+        try{
+            const {data} = await axios.get(`http://localhost:3001/api/dogs/${imageId}`)
+            return dispatch({
+                type: GET_DETAIL,
+                payload: data
+            })
+        }
+        catch(error){
+            return dispatch({
+                type:FETCH_ERROR,
+                payload: error.message
+            })
+        }
+    }
+}
+
 export const postDog = (payload) => {
     return async function(dispatch){
         try{
-        const post = await axios.post('http://localhost:3001/api/dogs', payload)
+        const post = await axios.post('http://localhost:3001/api/dogs/register', payload)
         return dispatch({
             type: POST_DOG,
             payload: post.data

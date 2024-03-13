@@ -14,7 +14,7 @@ const Card = ({dg}) => {
       <img src={dg.image} alt={dg.name} className={style.image}/>
       <h1 className={style.h1}>{dg.name}</h1>
       <h2 className={style.h2}>Temperament: {dg.temperament}</h2>
-      <h2 className={style.h2}>Weight: {dg.weight} kg</h2>
+      <h2 className={style.h2}>Weight: {dg.weightmax} kg</h2>
     </div>
     {modal && <div className={style.detail}>
       <Detail imageId={dg.imageId} toggelModal={toggelModal}/>

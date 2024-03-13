@@ -1,9 +1,10 @@
-import { BY_NAME, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER, POST_DOG, POST_DOG_FAIL } from "./actions"
+import { BY_NAME, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER, POST_DOG, POST_DOG_FAIL, GET_DETAIL } from "./actions"
 
 const initialState = {
     inmutableDogs: [],
     dogs: [],
     temperaments: [],
+    dogDetail: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,12 +20,17 @@ const reducer = (state = initialState, action) => {
             ...state,
             temperaments: action.payload
         }
-
+        case GET_DETAIL:
+        return{
+            ...state,
+            dogDetail: action.payload
+            }
+ 
         case TEMP_FILTER:
             if(action.payload === 'All'){
-                return {
-                    ...state, 
-                    dogs: [...state.inmutableDogs]}
+            return {
+                ...state, 
+                dogs: [...state.inmutableDogs]}
             }
             const filtByTemp = [...state.inmutableDogs].filter(dg => dg.temperament?.includes(action.payload))
             return{
@@ -46,9 +52,7 @@ const reducer = (state = initialState, action) => {
             }
         case ORDER_WEIGHTASC:
             const orderweightasc = [...state.inmutableDogs].sort((a, b) => {
-                const weightA = typeof a.weight === 'string' ? a.weight.split('-')[1] : 0;
-                const weightB = typeof b.weight === 'string' ? b.weight.split('-')[1] : 0;
-                return weightA - weightB
+                return a.weightmax - b.weightmax
             })
             return{
                 ...state,
@@ -56,9 +60,7 @@ const reducer = (state = initialState, action) => {
             }
         case ORDER_WEIGHTDESC:
             const orderweightdesc = [...state.inmutableDogs].sort((a, b) => {
-                const weightA = typeof a.weight === 'string' ? a.weight.split('-')[1] : 0;
-                const weightB = typeof b.weight === 'string' ? b.weight.split('-')[1] : 0;
-                return weightB - weightA
+                return b.weightmax - a.weightmax
             }
             )
             return{
