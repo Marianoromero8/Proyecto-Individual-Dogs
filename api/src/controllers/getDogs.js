@@ -10,20 +10,34 @@ const getDogsFromApi = async (req, res) => {
 
         const { data } = response;
         //mapeo para llamar los siguientes datos
-        const dogs = data.map(dog => ({
-            id: dog.id,
-            image: dog.image.url,
-            name: dog.name,
-            temperament: dog.temperament,
-            height: dog.height.metric,
-            weight: dog.weight.metric,
-            imageId: dog.reference_image_id
-        }))
-
-        return (dogs)
+            return data.map((dog) => {
+            const temperament = dog.temperament?.split(' ,').map(t => t.trim());
+            const heightmin = Number(dog.height.metric?.split(" - ")[0]);
+            const heightmax = Number(dog.height.metric?.split(" - ")[1]);
+            const weightmin = Number(dog.weight.metric?.split(" - ")[0]);
+            const weightmax = Number(dog.weight.metric?.split(" - ")[1]);
+            const agemin = Number(dog.life_span?.split(" ")[0]);
+            const agemax = Number(dog.life_span?.split(" ")[2]);
+            const imageId = dog.reference_image_id
+            
+            return ({
+                id: dog.id,
+                name: dog.name, 
+                image: dog.image.url,
+                origin: "API",
+                temperament,
+                heightmin,
+                heightmax,
+                weightmin,
+                weightmax,
+                agemin,
+                agemax,
+                imageId
+            })
+        })
     }
     catch(error){
-        return ({error: error.message})
+        throw new Error (error.message)
     }
 }
 
@@ -46,9 +60,9 @@ const getDogFromDB = async (req, res) => {
 }
 
 const getAllsDogs = async (req, res) => {
+    try {
     const apiDogs = await getDogsFromApi()
     const dbDogs = await getDogFromDB()
-    try {
         const callAllDogs = [...apiDogs, ...dbDogs];
 
         res.status(200).json(callAllDogs)

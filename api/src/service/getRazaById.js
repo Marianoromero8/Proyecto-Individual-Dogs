@@ -17,10 +17,13 @@ const getRazaById = async (id) => {
         id: breeds[0].id,
         image: url,
         name: name,
-        height: height.metric,
-        weight: weight.metric,
-        temperament: temperament,
-        life_span: life_span,
+        heightmin: Number(height.metric?.split(" - ")[0]),
+        heightmax: Number(height.metric?.split(" - ")[1]),
+        weightmax: Number(weight.metric?.split(" - ")[0]),
+        weightmax: Number(weight.metric?.split(" - ")[1]),
+        temperament: temperament?.split(" ,").map(t => t.trim()),
+        agemin: Number(life_span?.split(" ")[0]),
+        agemax: Number(life_span?.split(" ")[2]),
     }
 
     return byId;

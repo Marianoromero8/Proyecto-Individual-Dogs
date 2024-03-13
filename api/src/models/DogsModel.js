@@ -16,7 +16,7 @@ module.exports = (conn) => {
                     unique: true,
                     allowNull: false
                 },
-                height: {
+                heightmin: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate: {
@@ -24,7 +24,15 @@ module.exports = (conn) => {
                         max: 200
                     }
                 },
-                weight: {
+                heightmax: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                    validate: {
+                        min:10,
+                        max: 200
+                    }
+                },
+                weightmin: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate: {
@@ -32,7 +40,23 @@ module.exports = (conn) => {
                         max: 200
                     }
                 },
-                age: {
+                weightmax: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                    validate: {
+                        min: 1,
+                        max: 200
+                    }
+                },
+                agemin: {
+                    type: DataTypes.INTEGER,
+                    allowNull: false,
+                    validate:{
+                        min: 1,
+                        max: 25
+                    }
+                },
+                agemax: {
                     type: DataTypes.INTEGER,
                     allowNull: false,
                     validate:{

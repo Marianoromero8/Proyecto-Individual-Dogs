@@ -13,11 +13,14 @@ const postDog = async (req, res) => {
             where:{name: name},
             defaults: {
                 name: name,
-                height: height.metric,
-                weight: weight.metric,
                 image: image.url,
-                age: life_span,
-                temperament: temperament
+                temperament: temperament.split(" ,").map(t => t.trim()),
+                heightmin: Number(height?.metric.split(" - ")[0]),
+                heightmax: Number(height?.metric.split(" - ")[1]),
+                weightmin: Number(weight?.metric.split(" - ")[0]),
+                weightmax: Number(weight?.metric.split(" - ")[1]),
+                agemin: Number(life_span?.split(" ")[0]),
+                agemax: Number(life_span?.split(" ")[2]),
             }
         })
         
@@ -36,6 +39,7 @@ const postDog = async (req, res) => {
 
     }
     catch(error){
+        console.log(error)
         res.status(400).json({error: error.message})
     }
 }

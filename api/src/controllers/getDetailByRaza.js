@@ -10,7 +10,7 @@ const getDetailByRaza = async (req, res) => {
 
     }
     catch(error){
-        if(error.message == "Character Not Found") {
+        if(error.message) {
             return res.status(404).send("Character Not Found")
         }
         res.status(error.statusCode || 500).json(`error interno - ${error.message}`)
