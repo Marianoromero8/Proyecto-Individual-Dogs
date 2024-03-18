@@ -6,7 +6,7 @@ const getDogByName = async (req, res) => {
     try{
             
     if(!name){
-        throw new Error("Put a breed to search")
+        throw new Error ("Put a breed to search")
     }
     
     const dogByName = await service.getByName(name)

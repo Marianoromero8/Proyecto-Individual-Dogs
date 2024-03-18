@@ -7,7 +7,7 @@ const getByName = async (name) => {
     try{
        
     if(!name){
-        throw new Error("Put a breed")
+        throw new Error ("Put a breed")
     }
 
     const dogFromApi = await axios(`https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`);

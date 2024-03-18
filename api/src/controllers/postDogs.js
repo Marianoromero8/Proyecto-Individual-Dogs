@@ -1,9 +1,9 @@
 const { Dog, Temperament } = require("../db")
 
 const postDog = async (req, res) => {
-    const {name, height, weight, life_span, image, temperament} = req.body;
+    const {name, image, temperament, heightmin, heightmax, weightmin, weightmax, agemin, agemax} = req.body;
 
-    if(!name || !height || !weight || !life_span ){
+    if(!name || !temperament || !heightmin || !heightmax || !weightmin || !weightmax || !agemin || !agemax){
         return res.status(401).json({message: "Faltan datos"})
     }
 
@@ -12,24 +12,34 @@ const postDog = async (req, res) => {
         const [dog, created] = await Dog.findOrCreate({
             where:{name: name},
             defaults: {
-                name: name,
-                image: image.url,
-                temperament: temperament.split(" ,").map(t => t.trim()),
-                heightmin: Number(height?.metric.split(" - ")[0]),
-                heightmax: Number(height?.metric.split(" - ")[1]),
-                weightmin: Number(weight?.metric.split(" - ")[0]),
-                weightmax: Number(weight?.metric.split(" - ")[1]),
-                agemin: Number(life_span?.split(" ")[0]),
-                agemax: Number(life_span?.split(" ")[2]),
+                name,
+                image,
+                heightmin,
+                heightmax,
+                weightmin,
+                weightmax,
+                agemin,
+                agemax
             }
         })
-        
-        temperament.forEach(async t => {    
-            const temp = await Temperament.findOne({where: {name: t}});
+        console.log(temperament)
+
+        for(const t of temperament){
+            const temp = await Temperament.findOne({
+                where: {
+                    name: t
+                }
+            })
             if(temp){
                 await dog.addTemperament(temp)
             }
-        })
+        }
+        // temperament.forEach(async t => {    
+        //     const temp = await Temperament.findOne({where: {name: t}});
+        //     if(temp){
+        //         await dog.addTemperament(temp)
+        //     }
+        // })
 
         if(created){
             res.status(201).json(dog)
@@ -39,7 +49,6 @@ const postDog = async (req, res) => {
 
     }
     catch(error){
-        console.log(error)
         res.status(400).json({error: error.message})
     }
 }
