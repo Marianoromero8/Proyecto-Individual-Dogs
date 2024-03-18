@@ -20,9 +20,10 @@ const Form = () => {
     heightmax:"",
     weightmin: "",
     weightmax: "",
-    agesmin:"",
-    agesmax:"",
-    temperaments: []
+    agemin:"",
+    agemax:"",
+    image:"",
+    temperament: []
   })
   const [form, setForm] = useState({
     name:"",
@@ -30,18 +31,19 @@ const Form = () => {
     heightmax:"",
     weightmin: "",
     weightmax: "",
-    agesmin:"",
-    agesmax:"",
-    temperaments: []
+    agemin:"",
+    agemax:"",
+    image:"",
+    temperament: []
   })
   
   useEffect(() => {
     setErrors(validations(form))
-  }, [form.name, form.heightmin, form.heightmax, form.weightmin, form.weightmax, form.agesmin, form.agesmax, form.temperaments])
+  }, [form.name, form.heightmin, form.heightmax, form.weightmin, form.weightmax, form.agemin, form.agemax, form.temperament.length])
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (form.name && form.weightmin && form.weightmax && form.heightmin && form.heightmax && form.agesmin && form.agesmax && form.temperaments.length
+    if (form.name && form.weightmin && form.weightmax && form.heightmin && form.heightmax && form.agemin && form.agemax && form.temperament.length
     ) {
       dispatch(postDog(form));
       setForm({
@@ -53,7 +55,7 @@ const Form = () => {
         agemin: "",
         agemax: "",
         image: "",
-        temperaments: [],
+        temperament: [],
       });
       alert("Breed created");
     } else {
@@ -64,22 +66,22 @@ const Form = () => {
   const handleAdd = (event) => {
     const {name, value} = event.target;
 
-    if(!form.temperaments.includes(value) && form.temperaments.length < 5) {
+    if(!form.temperament.includes(value) && form.temperament.length < 5) {
       setForm({
         ...form,
-        temperaments: [...form.temperaments, value]
+        temperament: [...form.temperament, value]
       })
     } 
   }
 
   const handleRemove = (i) => {
-    const freshTemp = [...form.temperaments];
+    const freshTemp = [...form.temperament];
 
     freshTemp.splice(i, 1);
 
     setForm({
       ...form,
-      temperaments: [...freshTemp]
+      temperament: [...freshTemp]
     })
   }
 
@@ -126,12 +128,12 @@ const Form = () => {
     </div>
 
     <div onChange={handleChange}>
-      <label htmlFor="life_span" name='ages' className={style.label}>Life Span:</label>
-      {errors.ages && <p className={style.errors}>{errors.ages}</p>}
-      <input type="text" name='agesmin' placeholder='Min...' value={form.agesmin} onChange={handleChange} className={style.input} required/>
-      {errors.agesmin && <p className={style.errors}>{errors.agesmin}</p>}
-      <input type="text" name='agesmax' placeholder='Max...' value={form.agesmax} onChange={handleChange} className={style.input} required/>
-      {errors.agesmax && <p className={style.errors}>{errors.agesmax}</p>}
+      <label htmlFor="life_span" name='age' className={style.label}>Life Span:</label>
+      {errors.age && <p className={style.errors}>{errors.age}</p>}
+      <input type="text" name='agemin' placeholder='Min...' value={form.agemin} onChange={handleChange} className={style.input} required/>
+      {errors.agemin && <p className={style.errors}>{errors.agemin}</p>}
+      <input type="text" name='agemax' placeholder='Max...' value={form.agemax} onChange={handleChange} className={style.input} required/>
+      {errors.agemax && <p className={style.errors}>{errors.agemax}</p>}
 
 
     </div>
@@ -143,16 +145,16 @@ const Form = () => {
     </div>
 
     <div>
-      <label htmlFor="temperaments" name='temperaments' className={style.label}>Temperaments:</label>
-      <select onChange={handleAdd} disabled={form.temperaments.length === 5} name="temperaments" className={style.select}>
+      <label htmlFor="temperament" name='temperament' className={style.label}>Temperaments:</label>
+      <select onChange={handleAdd} disabled={form.temperament.length === 5} name="temperament" className={style.select}>
         {
           allTemperaments.map( (tp) =>
             <option key={tp.id} value={tp.name} className={style.option}>{tp.name}</option> )
         }
       </select>
-      {errors.temperaments && <p className={style.errors}>{errors.temperaments}</p>}
+      {errors.temperament && <p className={style.errors}>{errors.temperament}</p>}
       <small>Max 5 temperaments</small>
-      {form.temperaments.map((tempe, i) => (
+      {form.temperament.map((tempe, i) => (
         <div key={i} className={style.tag}>
           <span className={style.span}>{tempe}</span>
           <button className={style.buttonTag} type='button' onClick={() => handleRemove(i)}>X</button>

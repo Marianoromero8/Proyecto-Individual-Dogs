@@ -1,10 +1,9 @@
-import { BY_NAME, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER, POST_DOG, POST_DOG_FAIL, GET_DETAIL } from "./actions"
+import { BY_NAME, GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, ORDER_API, ORDER_AZ, ORDER_DB, ORDER_WEIGHTASC, ORDER_WEIGHTDESC, ORDER_ZA, TEMP_FILTER, POST_DOG, POST_DOG_FAIL } from "./actions"
 
 const initialState = {
     inmutableDogs: [],
     dogs: [],
     temperaments: [],
-    dogDetail: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -20,12 +19,6 @@ const reducer = (state = initialState, action) => {
             ...state,
             temperaments: action.payload
         }
-        case GET_DETAIL:
-        return{
-            ...state,
-            dogDetail: action.payload
-            }
- 
         case TEMP_FILTER:
             if(action.payload === 'All'){
             return {
@@ -80,13 +73,15 @@ const reducer = (state = initialState, action) => {
                 dogs: dbDogs
             }
         case BY_NAME:
+            const byName = state.inmutableDogs.filter(dg => dg.name === action.payload.name)
             return{
                 ...state,
-                dogs: action.payload
+                dogs: byName
             }
         case POST_DOG:
             return{
                 ...state,
+                dog: action.payload
             }
         case POST_DOG_FAIL: 
             return{

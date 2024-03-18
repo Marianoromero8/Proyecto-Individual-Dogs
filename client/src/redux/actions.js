@@ -70,24 +70,6 @@ export const searchByName = (name) => {
 }
 }
 
-export const getDetail = (imageId) => {
-    return async function(dispatch){
-        try{
-            const {data} = await axios.get(`http://localhost:3001/api/dogs/${imageId}`)
-            return dispatch({
-                type: GET_DETAIL,
-                payload: data
-            })
-        }
-        catch(error){
-            return dispatch({
-                type:FETCH_ERROR,
-                payload: error.message
-            })
-        }
-    }
-}
-
 export const postDog = (payload) => {
     return async function(dispatch){
         try{

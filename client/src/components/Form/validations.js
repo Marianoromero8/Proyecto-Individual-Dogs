@@ -16,8 +16,8 @@ export default (form) => {
         errors.height = "The field HEIGHT cant be empty";
     } else if(!form.weightmin || !form.weightmax){
         errors.weight = "The field WEIGHT cant be empty";
-    } else if(!form.temperaments || form.temperaments.length < 2){
-        errors.temperaments = "Select at least two";
+    } else if(!form.temperament || form.temperament.length < 2){
+        errors.temperament = "Select at least two";
     }
 
     if(form.name && !regexName.test(form.name)){
@@ -36,11 +36,11 @@ export default (form) => {
     if(form.weightmax && !regexNum1Al200.test(form.weightmax)){
         errors.weightmax = "ONLY NUMBERS BETWEEN 1 AND 200"
     }
-    if(form.agesmin && !regexNum1Al25.test(form.agesmin)){
-        errors.agesmin = "ONLY NUMBERS BETWEEN 1 AND 25"
+    if(form.agemin && !regexNum1Al25.test(form.agemin)){
+        errors.agemin = "ONLY NUMBERS BETWEEN 1 AND 25"
     }
-    if(form.agesmax && !regexNum1Al25.test(form.agesmax)){
-        errors.agesmax = "ONLY NUMBERS BETWEEN 1 AND 25"
+    if(form.agemax && !regexNum1Al25.test(form.agemax)){
+        errors.agemax = "ONLY NUMBERS BETWEEN 1 AND 25"
     }
 
     if(form.heightmin >= form.heightmax){
@@ -51,8 +51,8 @@ export default (form) => {
         errors.weight = "Verify the fields, a number is wrong"
     }
 
-    if(form.agesmin >= form.agesmax){
-        errors.ages = "Verify the fields, a number is wrong"
+    if(form.agemin >= form.agemax){
+        errors.age = "Verify the fields, a number is wrong"
     }
 
     return errors;
