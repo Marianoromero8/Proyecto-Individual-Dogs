@@ -26,11 +26,10 @@ const getByName = async (name) => {
         weightmax: weight.metric?.split(" - ")[1], 
         heightmin: height.metric?.split(" - ")[0], 
         heightmax: height.metric?.split(" - ")[1], 
-        agesmin: life_span?.spli(" ")[0], 
-        agesmax: life_span?.spli(" ")[2], 
+        agesmin: life_span?.split(" ")[0], 
+        agesmax: life_span?.split(" ")[2], 
     }]
     } else {
-
     const dogFromDB = await Dog.findAll({
         where: {name},
         include: {
@@ -42,12 +41,12 @@ const getByName = async (name) => {
     if(dogFromDB && dogFromDB > 0){
         return dogFromDB
     } else{
-        throw new Error ("Something wrong!")
+        throw new Error("Something wrong!")
     }
 }
     }
     catch(error){
-        {error.message = "Dog doesnt exist"}
+        throw new Error("Dog not found")
     }
 }
 
