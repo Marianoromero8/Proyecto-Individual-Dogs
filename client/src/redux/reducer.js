@@ -26,11 +26,11 @@ const reducer = (state = initialState, action) => {
                 dogs: [...state.inmutableDogs]}
             }
             const filtByTemp = [...state.inmutableDogs].filter(dg => dg.temperament?.includes(action.payload))
+            console.log(filtByTemp)
             return{
                 ...state,
                 dogs: filtByTemp
             }
-
         case ORDER_AZ:
             const orderAZ = [...state.inmutableDogs].sort((a, b) => a.name.localeCompare(b.name))
             return{
@@ -73,7 +73,7 @@ const reducer = (state = initialState, action) => {
                 dogs: dbDogs
             }
         case BY_NAME:
-            const byName = state.inmutableDogs.filter(dg => dg.name === action.payload.name)
+            const byName = [...state.inmutableDogs].filter(dg => dg.name === action.payload.name)
             return{
                 ...state,
                 dogs: byName
